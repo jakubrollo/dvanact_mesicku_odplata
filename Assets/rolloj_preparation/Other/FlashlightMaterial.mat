@@ -30,6 +30,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AspectRatio: 1
+    - _FlickerSpeed: 8
+    - _FlickerStrength: 0.1
     - _Radius: 0.2
     - _Smoothness: 0.1
     m_Colors:
