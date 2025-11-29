@@ -39,7 +39,7 @@ public class FirstStageManager : MonoBehaviour
  //   [SerializeField] private Transform secondDaughterPos;
 
     public bool PlayerFoundMirror = false;
-    public void RunStageFirst(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter, CinemachineVirtualCamera dialogueCamera)
+    public void RunStage(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter, CinemachineVirtualCamera dialogueCamera)
     {
         this.dialogueTextController = dialogueTextController;
         this.skipButton = skipButton;

@@ -32,7 +32,8 @@ public class SecondStageManager : MonoBehaviour
     [SerializeField] private Transform firstMotherPos;
     [SerializeField] private Transform firstDaughterPos;
 
-    public void RunStageSecond(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter/*, CinemachineVirtualCamera camera*/, CinemachineVirtualCamera dialogueCamera)
+
+    public void RunStage(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter/*, CinemachineVirtualCamera camera*/, CinemachineVirtualCamera dialogueCamera)
     {
         this.dialogueTextController = dialogueTextController;
         this.skipButton = skipButton;

@@ -12,6 +12,8 @@ public class CabinSceneManager : MonoBehaviour
 
     [SerializeField] private FirstStageManager firstStageManager;
     [SerializeField] private SecondStageManager secondStageManager;
+    [SerializeField] private ThirdStageManager thirdStageManager;
+    [SerializeField] private FourthStageManager fourthStageManager;
 
  //   [SerializeField] private CinemachineVirtualCamera camera;
     [SerializeField] private CinemachineVirtualCamera dialogueCamera;
@@ -30,7 +32,8 @@ public class CabinSceneManager : MonoBehaviour
     {
         First,
         Second,
-        Third
+        Third,
+        Fourth
     }
     void Start()
     {
@@ -48,15 +51,19 @@ public class CabinSceneManager : MonoBehaviour
         if (stage == CabinStage.First)
         {
 
-            firstStageManager.RunStageFirst(textController, skipButton,player, characterMother, characterDaugther, dialogueCamera);
+            firstStageManager.RunStage(textController, skipButton,player, characterMother, characterDaugther, dialogueCamera);
         }
         else if(stage == CabinStage.Second)
         {
-            secondStageManager.RunStageSecond(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
+            secondStageManager.RunStage(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
         }
         else if( stage == CabinStage.Third)
         {
-          //  RunStageThird();
+            thirdStageManager.RunStage(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
+        }
+        else if (stage == CabinStage.Third)
+        {
+            fourthStageManager.RunStage(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
         }
     }
 
