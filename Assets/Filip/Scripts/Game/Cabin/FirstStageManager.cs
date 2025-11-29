@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.Events;
 
 
 public class FirstStageManager : MonoBehaviour
@@ -16,6 +16,8 @@ public class FirstStageManager : MonoBehaviour
 
     [SerializeField] private Transform firstCameraSpot;
     [SerializeField] private Transform secondCameraSpot;
+
+    [SerializeField] private string lanternTip = "Press left mouse button, to find reflecting objects.";
 
     private DialogueTextController dialogueTextController;
 
@@ -36,7 +38,9 @@ public class FirstStageManager : MonoBehaviour
     [SerializeField] private Transform firstDaughterPos;
 
     [SerializeField] private Transform secondMotherPos;
- //   [SerializeField] private Transform secondDaughterPos;
+    //   [SerializeField] private Transform secondDaughterPos;
+
+    public UnityEvent OnStageFinished;
 
     public bool PlayerFoundMirror = false;
     public void RunStage(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter, CinemachineVirtualCamera dialogueCamera)
@@ -49,6 +53,8 @@ public class FirstStageManager : MonoBehaviour
         this.characterMother = mother;
         this.characterDaugther = daughter;
         this.dialogueVirtualCamera = dialogueCamera;
+        this.skipButton.action.Enable();
+
         StartCoroutine(RunDialogueCoroutine());
     }
 
@@ -81,7 +87,14 @@ public class FirstStageManager : MonoBehaviour
         dialogueVirtualCamera.Priority = 0;
         firstPersonController.canMove = true;
 
+
+        dialogueTextController.FadeOutText();
+        dialogueTextController.ShowTip(lanternTip);
+
+
+
         yield return StartCoroutine(WaitForPlayerFindMirror());
+        dialogueTextController.FadeInText();
 
         dialogueVirtualCamera.transform.position = secondCameraSpot.position;
         dialogueVirtualCamera.Priority = 300;
@@ -110,6 +123,7 @@ public class FirstStageManager : MonoBehaviour
         yield return StartCoroutine (WaitForTimeOrSkip(pauseBetweenLines));
         dialogueTextController.FadeOutText();
         //next scene
+        OnStageFinished?.Invoke();
         Debug.Log("next scene");
     }
 

@@ -4,6 +4,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 
@@ -32,7 +33,7 @@ public class SecondStageManager : MonoBehaviour
     [SerializeField] private Transform firstMotherPos;
     [SerializeField] private Transform firstDaughterPos;
 
-
+    public UnityEvent OnStageFinished;
     public void RunStage(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter/*, CinemachineVirtualCamera camera*/, CinemachineVirtualCamera dialogueCamera)
     {
         this.dialogueTextController = dialogueTextController;
@@ -43,6 +44,7 @@ public class SecondStageManager : MonoBehaviour
         this.characterMother = mother;
         this.characterDaugther = daughter;
         this.dialogueVirtualCamera = dialogueCamera;
+        this.skipButton.action.Enable();
         StartCoroutine(RunDialogueCoroutine());
     }
 
@@ -84,6 +86,7 @@ public class SecondStageManager : MonoBehaviour
         yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         dialogueTextController.FadeOutText();
         //next scene
+        OnStageFinished?.Invoke();
         Debug.Log("next scene");
     }
 
