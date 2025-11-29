@@ -8,7 +8,7 @@ public class Billboard : MonoBehaviour
     {
         if (player == null) return;
 
-        Vector3 direction = player.position - transform.position;
+        Vector3 direction = -(player.position - transform.position);
 
         direction.y = 0;
 

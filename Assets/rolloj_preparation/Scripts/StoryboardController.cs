@@ -72,7 +72,7 @@ public class StoryboardController : MonoBehaviour
         index++;
         if (index >= slides.Length)
         {
-            SceneManager.LoadScene("Forest");
+            SceneManager.LoadScene("Cabin");
             return;
         }
 
