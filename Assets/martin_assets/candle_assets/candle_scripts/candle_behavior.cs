@@ -10,7 +10,7 @@ public class CandleBehavior : MonoBehaviour
     public Vector3 off_position = Vector3.zero; // Position when candle is off
     public float tween_duration = 0.5f; // How long the tween takes
 
-    private PlayerInputActions inputActions;
+    private InputSystem_Actions inputActions;
     private Vector3 starting_position;
     private float time_counter = 0f;
 
@@ -21,24 +21,28 @@ public class CandleBehavior : MonoBehaviour
 
     private void Awake()
     {
-        //inputActions = new PlayerInputActions();
+        inputActions = new InputSystem_Actions();
         starting_position = transform.position;
+        off_position = transform.position;
+
+
     }
 
     private void OnEnable()
     {
-        inputActions.Player.ToggleCandle.performed += OnToggleCandle;
+        inputActions.Player.CandleToggle.performed += OnToggleCandle;
         inputActions.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.Player.ToggleCandle.performed -= OnToggleCandle;
+        //inputActions.Player.CandleToggle.performed -= OnToggleCandle;
         inputActions.Disable();
     }
 
     private void OnToggleCandle(InputAction.CallbackContext context)
     {
+        Debug.Log("CandleToggled!");
         ToggleCandle();
     }
 

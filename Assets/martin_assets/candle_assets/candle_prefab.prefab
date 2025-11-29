@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7642823462550921694}
+  - component: {fileID: 2139867794726615945}
   m_Layer: 0
   m_Name: candle_prefab
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   - {fileID: 6379470610296056972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2139867794726615945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3636478091816852461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48578a327e4f55048a241e5cfdaa3591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CandleBehavior
+  candle_turned_on: 0
+  amplitude_movement_turned_on: 0.15
+  floating_frequency_turned_on: 1.22
+  off_position: {x: 0, y: 0, z: 0}
+  tween_duration: 0.5
 --- !u!1001 &6846271625252359015
 PrefabInstance:
   m_ObjectHideFlags: 0
