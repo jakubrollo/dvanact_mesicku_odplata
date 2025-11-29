@@ -50,6 +50,7 @@ MonoBehaviour:
   floating_frequency_turned_on: 1.22
   off_position: {x: 0, y: 0, z: 0}
   tween_duration: 0.5
+  on_position_offset: {x: 0, y: 0, z: 0}
 --- !u!1001 &6846271625252359015
 PrefabInstance:
   m_ObjectHideFlags: 0
