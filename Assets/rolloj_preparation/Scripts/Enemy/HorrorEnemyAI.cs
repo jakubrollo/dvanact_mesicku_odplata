@@ -10,8 +10,13 @@ public class HorrorEnemyAI : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerCandle playerCandle;
     [SerializeField] private Transform playerTransform;
-    [Tooltip("The actual Camera object inside the player")]
+
+    [Tooltip("The Main Camera (The one with the Cinemachine Brain)")]
     [SerializeField] private Transform playerCameraTransform;
+
+    [Tooltip("Drag your 'PlayerFollowCamera' (the Cinemachine Virtual Camera object) here")]
+    [SerializeField] private GameObject playerVirtualCameraObject; // <--- NEW REFERENCE
+
     [Tooltip("Drag the Player's movement script here so we can disable it on death")]
     [SerializeField] private MonoBehaviour playerMovementScript;
 
@@ -35,8 +40,8 @@ public class HorrorEnemyAI : MonoBehaviour
     [SerializeField] private float rotateToPlayerSpeed = 5.0f;
 
     [Header("Kill Settings")]
-    [SerializeField] private float killDistance = 1.2f; // Distance to trigger death
-    [SerializeField] private float enemyEyeHeight = 1.7f; // Height of enemy face for camera lock
+    [SerializeField] private float killDistance = 1.2f;
+    [SerializeField] private float enemyEyeHeight = 1.4f; // Adjusted for typical player height
     [SerializeField] private AudioClip crunchSound;
     [Range(0.1f, 3f)][SerializeField] private float crunchVolume = 2.0f;
 
@@ -66,10 +71,13 @@ public class HorrorEnemyAI : MonoBehaviour
     private float chaseMemoryTimer = 0f;
     private float screamTimer = 0f;
     private Coroutine activeFadeCoroutine;
-
+    private bool isForcedFlee = false;
     private Vector3 lastKnownPosition;
-
-    // Added Kill State
+    public void TriggerFlee()
+    {
+        isForcedFlee = true;
+        SetState(EnemyState.Disappear);
+    }
     private enum EnemyState { Wander, NoticeReaction, Chase, Disappear, Kill }
     private EnemyState currentState = EnemyState.Wander;
 
@@ -90,7 +98,17 @@ public class HorrorEnemyAI : MonoBehaviour
         breathingAudioSource.spatialBlend = 0.0f;
         breathingAudioSource.playOnAwake = true;
         breathingAudioSource.Play();
-
+        if (GameProgressionManager.Instance != null)
+        {
+            var data = GameProgressionManager.Instance.GetCurrentLevelData();
+            if (data.hasEnemy)
+            {
+                this.chaseSpeed = data.chaseSpeed;
+                this.noticeBuildUpTime = data.noticeBuildUpTime;
+                this.maxRadius = data.maxDetectionRadius;
+                this.currentDetectionRadius = minRadius;
+            }
+        }
         SetState(EnemyState.Wander);
     }
 
@@ -109,7 +127,7 @@ public class HorrorEnemyAI : MonoBehaviour
         HandleStateLogic();
     }
 
-    // --- New Function: Forces Player to Look at Enemy ---
+    // --- UPDATED: Works by taking control from Cinemachine ---
     void HandleKillCameraLock()
     {
         if (playerCameraTransform != null)
@@ -117,12 +135,14 @@ public class HorrorEnemyAI : MonoBehaviour
             // Calculate where the enemy's eyes are
             Vector3 enemyEyes = transform.position + Vector3.up * enemyEyeHeight;
 
-            // Determine direction
+            // Determine direction from Camera to Enemy Eyes
             Vector3 direction = (enemyEyes - playerCameraTransform.position).normalized;
 
             // Smoothly rotate camera towards enemy
             Quaternion lookRot = Quaternion.LookRotation(direction);
-            playerCameraTransform.rotation = Quaternion.Slerp(playerCameraTransform.rotation, lookRot, Time.deltaTime * 10f);
+
+            // Note: Since we disabled the Cinemachine Object, this manual rotation now works!
+            playerCameraTransform.rotation = Quaternion.Slerp(playerCameraTransform.rotation, lookRot, Time.deltaTime * 8f);
         }
     }
 
@@ -136,10 +156,17 @@ public class HorrorEnemyAI : MonoBehaviour
         rawNoticeValue = Mathf.Clamp01(rawNoticeValue);
         currentNoticeLevel = noticeCurve.Evaluate(rawNoticeValue);
     }
+    public void SetDifficulty(float newChaseSpeed, float newNoticeTime, float newMaxRadius)
+    {
+        this.chaseSpeed = newChaseSpeed;
+        this.noticeBuildUpTime = newNoticeTime;
+        this.maxRadius = newMaxRadius;
 
+        // Reset state to be safe
+        currentDetectionRadius = minRadius;
+    }
     void HandleRadiusLogic()
     {
-
         if (playerCandle.IsCandleOn)
             currentDetectionRadius += radiusGrowthSpeed * Time.deltaTime;
         else
@@ -200,7 +227,6 @@ public class HorrorEnemyAI : MonoBehaviour
                 agent.speed = chaseSpeed;
 
                 // --- KILL TRIGGER ---
-                // If player is within kill distance, trigger death
                 if (distToPlayer < killDistance)
                 {
                     SetState(EnemyState.Kill);
@@ -230,6 +256,15 @@ public class HorrorEnemyAI : MonoBehaviour
 
             case EnemyState.Disappear:
                 agent.speed = fleeSpeed;
+                if (isForcedFlee)
+                {
+                    if (!agent.pathPending && agent.remainingDistance < 1f)
+                    {
+                        Vector3 fleePos = transform.position + transform.forward * 10f;
+                        agent.SetDestination(GetRandomNavMeshPoint(fleePos, 5f));
+                    }
+                    return;
+                }
                 if (!agent.pathPending && agent.remainingDistance < 1f)
                 {
                     SetState(EnemyState.Wander);
@@ -292,23 +327,24 @@ public class HorrorEnemyAI : MonoBehaviour
                 agent.velocity = Vector3.zero;
 
                 // 2. Disable Player Controls
-                if (playerMovementScript != null)
-                {
-                    playerMovementScript.enabled = false;
-                }
+                if (playerMovementScript != null) playerMovementScript.enabled = false;
 
-                // 3. Play Crunch Sound
+                // 3. DISABLE CINEMACHINE (Crucial!)
+                if (playerVirtualCameraObject != null) playerVirtualCameraObject.SetActive(false);
+
+                // 4. Play Crunch Sound
                 mainAudioSource.Stop();
                 mainAudioSource.loop = false;
                 mainAudioSource.clip = crunchSound;
                 mainAudioSource.volume = crunchVolume;
                 mainAudioSource.Play();
 
-                // 4. Silence Breathing (optional, adds focus to crunch)
                 if (breathingAudioSource) breathingAudioSource.Stop();
+                StartCoroutine(DeathSequence());
                 break;
         }
     }
+
 
     IEnumerator FadeOutAudio(float duration)
     {
@@ -361,6 +397,25 @@ public class HorrorEnemyAI : MonoBehaviour
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(lastKnownPosition, 1f);
             Gizmos.DrawLine(transform.position, lastKnownPosition);
+        }
+    }
+
+    // --- NEW DEATH SEQUENCE COROUTINE ---
+    IEnumerator DeathSequence()
+    {
+        // Wait for the crunch sound to play out a bit (e.g., 2 seconds)
+        // Adjust this float to match your audio clip length
+        yield return new WaitForSeconds(2.0f);
+
+        // Tell the Manager to reload the current level
+        if (GameProgressionManager.Instance != null)
+        {
+            GameProgressionManager.Instance.ReloadCurrentLevel();
+        }
+        else
+        {
+            Debug.LogError("No GameProgressionManager! Reloading scene manually.");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
     }
 }
