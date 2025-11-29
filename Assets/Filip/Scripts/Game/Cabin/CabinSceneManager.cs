@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,8 +11,21 @@ public class CabinSceneManager : MonoBehaviour
     [SerializeField] private CabinStage stage  = CabinStage.First;
 
     [SerializeField] private FirstStageManager firstStageManager;
+    [SerializeField] private SecondStageManager secondStageManager;
 
+ //   [SerializeField] private CinemachineVirtualCamera camera;
+    [SerializeField] private CinemachineVirtualCamera dialogueCamera;
 
+    [SerializeField] private GameObject characterMother;
+    [SerializeField] private GameObject characterDaugther;
+
+//    [SerializeField] private Transform firstPCPos;
+//    [SerializeField] private Transform firstMotherPos;
+//    [SerializeField] private Transform firstDaughterPos;
+
+    [SerializeField] private Transform secondPCPos;
+    [SerializeField] private Transform secondMotherPos;
+    [SerializeField] private Transform secondDaughterPos;
     public enum CabinStage
     {
         First,
@@ -33,27 +47,18 @@ public class CabinSceneManager : MonoBehaviour
     {
         if (stage == CabinStage.First)
         {
-            firstStageManager.RunStageFirst(textController, skipButton,player);
+
+            firstStageManager.RunStageFirst(textController, skipButton,player, characterMother, characterDaugther, dialogueCamera);
         }
         else if(stage == CabinStage.Second)
-        { 
-            RunStageSecond(); 
+        {
+            secondStageManager.RunStageSecond(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
         }
         else if( stage == CabinStage.Third)
         {
-            RunStageThird();
+          //  RunStageThird();
         }
     }
 
 
-
-    private void RunStageSecond()
-    {
-
-    }
-
-    private void RunStageThird()
-    {
-
-    }
 }
