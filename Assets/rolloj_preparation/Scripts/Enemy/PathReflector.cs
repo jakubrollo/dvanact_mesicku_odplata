@@ -3,57 +3,85 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PathReflector : MonoBehaviour
 {
-    [Header("Glimmer Settings")]
-    [SerializeField] private Color glimmerColor = Color.cyan; // The color of the marker
-    [SerializeField] private float pulseSpeed = 2.0f; // How fast it pulses
-    [SerializeField] private float fadeSpeed = 5.0f;  // How fast it appears/disappears
-    [SerializeField] private float maxAlpha = 0.8f;   // Max brightness (0 to 1)
+    [Header("Glare Settings")]
+    [SerializeField] private Color glimmerColor = Color.cyan;
+    [SerializeField] private float maxAlpha = 1.0f;
+    [SerializeField] private float glareFocus = 20.0f;
+    [SerializeField] private float shimmerSpeed = 3.0f;
 
-    [SerializeField]  private PlayerCandle playerCandle;
+    [Header("Light Settings")]
+    [Tooltip("Optional: Drag a child Point Light here to make it pulse with the sprite")]
+    [SerializeField] private Light pointLight;
+    [SerializeField] private float maxLightIntensity = 1.0f;
+
+    [Header("References")]
+    [SerializeField] private PlayerCandle playerCandle;
+
     private SpriteRenderer spriteRenderer;
     private float targetAlpha = 0f;
     private float currentAlpha = 0f;
+    private Transform lightSourceTransform;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        Debug.Log("PathReflector: Found Point Light: " + (pointLight != null));
+        if (playerCandle == null)
+            playerCandle = Object.FindFirstObjectByType<PlayerCandle>();
 
-        // Start invisible
+        if (playerCandle != null)
+            lightSourceTransform = playerCandle.transform;
+
         Color c = glimmerColor;
         c.a = 0f;
         spriteRenderer.color = c;
+        if (pointLight) pointLight.intensity = 0f;
     }
 
     void Update()
     {
-        if (playerCandle == null) return;
+        if (playerCandle == null || lightSourceTransform == null) return;
 
-        // 1. Determine Target Alpha
         if (playerCandle.IsCandleOn)
         {
-            // Calculate a pulsing sine wave (Glimmer effect)
-            // Moves between 0.3 and 1.0 based on time
-            float pulse = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f;
-            // Map it to a nice range so it never goes fully dark while ON
-            float glimmerFactor = Mathf.Lerp(0.4f, 1.0f, pulse);
+            Vector3 directionToReflector = (transform.position - lightSourceTransform.position).normalized;
+            float dot = Vector3.Dot(lightSourceTransform.forward, directionToReflector);
 
-            targetAlpha = maxAlpha * glimmerFactor;
+            if (dot > 0f)
+            {
+                float glareIntensity = Mathf.Pow(dot, glareFocus);
+                float shimmer = Mathf.PerlinNoise(Time.time * shimmerSpeed, 0f) * 0.2f + 0.8f;
+                targetAlpha = maxAlpha * glareIntensity * shimmer;
+            }
+            else
+            {
+                targetAlpha = 0f;
+                if(pointLight != null)
+                    pointLight.enabled = false;
+            }
         }
         else
         {
-            targetAlpha = 0f; // Invisible
+            targetAlpha = 0f;
+            if (pointLight != null)
+                pointLight.enabled = false;
         }
 
-        // 2. Smoothly Lerp current alpha to target
-        currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, Time.deltaTime * fadeSpeed);
 
-        // 3. Apply Color
+        currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, Time.deltaTime * 10f);
+
+
         Color finalColor = glimmerColor;
         finalColor.a = currentAlpha;
         spriteRenderer.color = finalColor;
-
-        // Optimization: Disable renderer if fully invisible to save performance
         spriteRenderer.enabled = currentAlpha > 0.01f;
+
+        if (pointLight != null)
+        {
+            pointLight.intensity = currentAlpha * maxLightIntensity;
+
+            pointLight.enabled = currentAlpha > 0.01f;
+        }
     }
 }
