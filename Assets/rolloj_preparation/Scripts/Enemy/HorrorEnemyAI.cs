@@ -148,7 +148,7 @@ public class HorrorEnemyAI : MonoBehaviour
 
     void HandleNoticeLogic()
     {
-        if (playerCandle.IsCandleOn) // change this to Martin's candle
+        if (playerCandle.IsCandleOn) // change this to Martin's candle, otherwise null
             rawNoticeValue += Time.deltaTime / noticeBuildUpTime;
         else
             rawNoticeValue -= Time.deltaTime / noticeDecayTime;
