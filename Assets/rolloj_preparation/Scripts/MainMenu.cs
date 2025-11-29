@@ -6,12 +6,12 @@ public class MainMenu : MonoBehaviour
     public ScreenFader screenFader;
     public void PlayGame()
     {
-        ScreenFader.instance.FadeToScene("Game");
+        ScreenFader.Instance.FadeAndLoadScene("StoryboardIntro");
     }
 
     public void StartTutorial()
     {
-        ScreenFader.instance.FadeToScene("Tutorial");
+        ScreenFader.Instance.FadeAndLoadScene("Tutorial");
     }
 
     public void QuitGame()
