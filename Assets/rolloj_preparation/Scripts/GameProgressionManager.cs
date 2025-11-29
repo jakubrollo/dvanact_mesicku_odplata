@@ -101,10 +101,22 @@ public class GameProgressionManager : MonoBehaviour
         Ambients.CloseDoorSound();
 
         LevelData step = progressionSteps[currentStepIndex];
-        UnityEngine.SceneManagement.SceneManager.LoadScene(step.sceneName);
-
-        // run ambient loop sounds
-        Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
+        if (ScreenFader.Instance != null)
+        {
+            print("Using ScreenFader to reload current level: " + step.sceneName);
+            // This triggers the visual Fade Out -> Load
+            ScreenFader.Instance.FadeAndLoadScene(step.sceneName);
+            // run ambient loop sounds
+            Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
+        }
+        else
+        {
+            print("No ScreenFader found. Reloading current level directly: " + step.sceneName);
+            // Fallback if Fader is missing
+            UnityEngine.SceneManagement.SceneManager.LoadScene(step.sceneName);
+	    // run ambient loop sounds
+       	    Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
+        }
     }
 
     public LevelData GetCurrentLevelData()
