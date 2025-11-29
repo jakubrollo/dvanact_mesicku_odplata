@@ -454,69 +454,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &623302043 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3636478091816852461, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
-  m_PrefabInstance: {fileID: 1019208168}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &623302045
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 623302043}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &765790411
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,9 +512,49 @@ PrefabInstance:
     m_TransformParent: {fileID: 281167375}
     m_Modifications:
     - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: flame_plane
+      value: 
+      objectReference: {fileID: 1468060126}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: flame_sprite
+      value: 
+      objectReference: {fileID: 1468060126}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: candle_material
+      value: 
+      objectReference: {fileID: 2100000, guid: 4bd2771122c3d0244aa98fc1ddacc958, type: 2}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: candle_turned_on
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: emission_color_on.b
+      value: 0.5803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: emission_color_on.g
+      value: 0.9254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
       propertyPath: on_position_offset.y
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: emission_intensity_on
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: flame_lights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: 'flame_lights.Array.data[0]'
+      value: 
+      objectReference: {fileID: 450191347}
+    - target: {fileID: 2139867794726615945, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
+      propertyPath: 'flame_lights.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1858031909}
     - target: {fileID: 3636478091816852461, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
       propertyPath: m_Name
       value: candle_prefab
@@ -638,10 +615,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7642823462550921694, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1468060127}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3636478091816852461, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 623302045}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f02cfb006b942b244ac56182ae87c676, type: 3}
 --- !u!1001 &1141916026
 PrefabInstance:
