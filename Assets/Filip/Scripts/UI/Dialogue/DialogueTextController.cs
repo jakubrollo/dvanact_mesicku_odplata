@@ -55,6 +55,7 @@ public class DialogueTextController : MonoBehaviour
     // Zavolá se na zaèátku dialogu
     public void FadeInText()
     {
+        HideTip();
         dialogueVisible = true;
         dialogueBox.SetActive(true);
         StartCoroutine(FadeText(textMeshPro, 0f, 1f, fadeDuration));
@@ -106,9 +107,29 @@ public class DialogueTextController : MonoBehaviour
         tipCoroutine = StartCoroutine(ShowTipCoroutine(tip));
     }
 
-    public void HideTip()
+    public void HideTip(float fastFade = 0.1f)
     {
-        StopCoroutine(tipCoroutine);
+        // Stop current tip coroutine (showing / fading in / waiting)
+        if (tipCoroutine != null)
+        {
+            StopCoroutine(tipCoroutine);
+            tipCoroutine = null;
+        }
+
+        // If still active, fade out fast
+        if (textMeshTips.gameObject.activeSelf)
+        {
+            // Start a quick fade-out coroutine
+            StartCoroutine(FastHideTipCoroutine(fastFade));
+        }
+    }
+
+    private IEnumerator FastHideTipCoroutine(float fadeTime)
+    {
+        // Fade from current alpha to 0
+        yield return FadeText(textMeshTips, textMeshTips.alpha, 0f, fadeTime);
+
+        textMeshTips.gameObject.SetActive(false);
     }
 
     private IEnumerator ShowTipCoroutine(string tip)
