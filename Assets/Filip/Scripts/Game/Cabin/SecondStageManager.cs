@@ -8,14 +8,13 @@ using UnityEngine.InputSystem;
 
 
 
-public class FirstStageManager : MonoBehaviour
+public class SecondStageManager : MonoBehaviour
 {
     [SerializeField] private float pauseBetweenLines = 3f;
 
     [SerializeField] private List<DialogueLine> firstDialogue = new List<DialogueLine>();
 
     [SerializeField] private Transform firstCameraSpot;
-    [SerializeField] private Transform secondCameraSpot;
 
     private DialogueTextController dialogueTextController;
 
@@ -25,26 +24,20 @@ public class FirstStageManager : MonoBehaviour
     private GameObject characterMother;
     private GameObject characterDaugther;
 
- //   private CinemachineVirtualCamera virtualCamera;
+   // private CinemachineVirtualCamera virtualCamera;
     private CinemachineVirtualCamera dialogueVirtualCamera;
-
-    [SerializeField] private List<DialogueLine> secondDialogue = new List<DialogueLine>();
 
     private GameObject player;
     [SerializeField] private Transform firstPCPos;
     [SerializeField] private Transform firstMotherPos;
     [SerializeField] private Transform firstDaughterPos;
 
-    [SerializeField] private Transform secondMotherPos;
- //   [SerializeField] private Transform secondDaughterPos;
-
-    public bool PlayerFoundMirror = false;
-    public void RunStageFirst(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter, CinemachineVirtualCamera dialogueCamera)
+    public void RunStageSecond(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter/*, CinemachineVirtualCamera camera*/, CinemachineVirtualCamera dialogueCamera)
     {
         this.dialogueTextController = dialogueTextController;
         this.skipButton = skipButton;
         this.firstPersonController = player.GetComponent<FirstPersonController>();
-       // virtualCamera = camera;
+      //  virtualCamera = camera;
         this.player = player;
         this.characterMother = mother;
         this.characterDaugther = daughter;
@@ -66,7 +59,9 @@ public class FirstStageManager : MonoBehaviour
         //Initial dialogue 
         dialogueVirtualCamera.transform.position = firstCameraSpot.position;
         dialogueVirtualCamera.Priority = 300;
-        
+
+        dialogueVirtualCamera.LookAt = characterMother.transform;
+
         for (int i = 0; i < firstDialogue.Count; i++)
         {
             MakeCharacterTalk(firstDialogue[i]);
@@ -75,39 +70,17 @@ public class FirstStageManager : MonoBehaviour
             {
                 dialogueVirtualCamera.LookAt = characterMother.transform;
             }
+            else if (firstDialogue[i].speakerName == "Holena")
+            {
+                dialogueVirtualCamera.LookAt = characterDaugther.transform;
+            }
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
         dialogueVirtualCamera.Priority = 0;
         firstPersonController.canMove = true;
 
-        yield return StartCoroutine(WaitForPlayerFindMirror());
-
-        dialogueVirtualCamera.transform.position = secondCameraSpot.position;
-        dialogueVirtualCamera.Priority = 300;
-
-//        characterMother.transform.position = secondMotherPos.position;
-    //    characterDaugther.transform.position = secondDaughterPos.position;
-
-        //Second dialogue 
-        for (int i = 0; i < secondDialogue.Count; i++)
-        {
-            MakeCharacterTalk(secondDialogue[i]);
-
-            if (secondDialogue[i].speakerName == "Macecha")
-            {
-                characterMother.transform.position = secondMotherPos.position;
-                dialogueVirtualCamera.LookAt = characterMother.transform;
-            }
-            else if(secondDialogue[i].speakerName == "Holena")
-            {
-                dialogueVirtualCamera.LookAt = characterDaugther.transform;
-            }
-            yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
-        }
-        dialogueVirtualCamera.Priority = 0;
-
-        yield return StartCoroutine (WaitForTimeOrSkip(pauseBetweenLines));
+        yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         dialogueTextController.FadeOutText();
         //next scene
         Debug.Log("next scene");
@@ -126,7 +99,7 @@ public class FirstStageManager : MonoBehaviour
 
             if (skipButton != null && skipButton.action != null && skipButton.action.WasPressedThisFrame())
             {
-                break; 
+                break;
             }
 
             yield return null;
@@ -145,19 +118,9 @@ public class FirstStageManager : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitForPlayerFindMirror()
-    {
-
-        PlayerFoundMirror = false;
-        while (!PlayerFoundMirror)
-        {
-            yield return null; 
-        }
-    }
-
     private void MakeCharacterTalk(DialogueLine line)
     {
-      //  if (character == null) return; make sure it doesnt call animation on player character
+        //  if (character == null) return; make sure it doesnt call animation on player character
 
         dialogueTextController.UpdateTextInBox(line.lineText, line.speakerName);
 
