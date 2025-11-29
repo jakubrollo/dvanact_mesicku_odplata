@@ -6,9 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-
-public class SecondStageManager : MonoBehaviour
+public class ThirdStageManager : MonoBehaviour
 {
     [SerializeField] private float pauseBetweenLines = 3f;
 
@@ -24,7 +22,7 @@ public class SecondStageManager : MonoBehaviour
     private GameObject characterMother;
     private GameObject characterDaugther;
 
-   // private CinemachineVirtualCamera virtualCamera;
+    // private CinemachineVirtualCamera virtualCamera;
     private CinemachineVirtualCamera dialogueVirtualCamera;
 
     private GameObject player;
@@ -32,13 +30,12 @@ public class SecondStageManager : MonoBehaviour
     [SerializeField] private Transform firstMotherPos;
     [SerializeField] private Transform firstDaughterPos;
 
-
     public void RunStage(DialogueTextController dialogueTextController, InputActionReference skipButton, GameObject player, GameObject mother, GameObject daughter/*, CinemachineVirtualCamera camera*/, CinemachineVirtualCamera dialogueCamera)
     {
         this.dialogueTextController = dialogueTextController;
         this.skipButton = skipButton;
         this.firstPersonController = player.GetComponent<FirstPersonController>();
-      //  virtualCamera = camera;
+        //  virtualCamera = camera;
         this.player = player;
         this.characterMother = mother;
         this.characterDaugther = daughter;
