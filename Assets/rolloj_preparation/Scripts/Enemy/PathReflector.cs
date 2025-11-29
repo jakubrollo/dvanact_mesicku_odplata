@@ -21,7 +21,7 @@ public class PathReflector : MonoBehaviour
     [SerializeField] private float maxLightIntensity = 1.0f;
 
     [Header("References")]
-    [SerializeField] private PlayerCandle playerCandle;
+    [SerializeField] private CandleBehavior playerCandle;
 
     private SpriteRenderer spriteRenderer;
     private float targetAlpha = 0f;
@@ -33,7 +33,7 @@ public class PathReflector : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (playerCandle == null)
-            playerCandle = Object.FindFirstObjectByType<PlayerCandle>();
+            playerCandle = Object.FindFirstObjectByType<CandleBehavior>();
 
         if (playerCandle != null)
             lightSourceTransform = playerCandle.transform;
@@ -51,7 +51,7 @@ public class PathReflector : MonoBehaviour
         // 1. Calculate the DESIRED Alpha based on physics/angles
         float calculatedTarget = 0f;
 
-        if (playerCandle.IsCandleOn)
+        if (playerCandle.candle_turned_on)
         {
             Vector3 directionToReflector = (transform.position - lightSourceTransform.position).normalized;
             float dot = Vector3.Dot(lightSourceTransform.forward, directionToReflector);

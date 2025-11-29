@@ -8,7 +8,7 @@ public class HorrorEnemyAI : MonoBehaviour
 {
     // --- Configuration ---
     [Header("References")]
-    [SerializeField] private PlayerCandle playerCandle;
+    [SerializeField] private CandleBehavior playerCandle;
     [SerializeField] private Transform playerTransform;
 
     [Tooltip("The Main Camera (The one with the Cinemachine Brain)")]
@@ -148,7 +148,7 @@ public class HorrorEnemyAI : MonoBehaviour
 
     void HandleNoticeLogic()
     {
-        if (playerCandle.IsCandleOn) // change this to Martin's candle, otherwise null
+        if (playerCandle.candle_turned_on) // change this to Martin's candle, otherwise null
             rawNoticeValue += Time.deltaTime / noticeBuildUpTime;
         else
             rawNoticeValue -= Time.deltaTime / noticeDecayTime;
@@ -167,7 +167,7 @@ public class HorrorEnemyAI : MonoBehaviour
     }
     void HandleRadiusLogic()
     {
-        if (playerCandle.IsCandleOn)
+        if (playerCandle.candle_turned_on)
             currentDetectionRadius += radiusGrowthSpeed * Time.deltaTime;
         else
             currentDetectionRadius -= radiusDecaySpeed * Time.deltaTime;
@@ -233,7 +233,7 @@ public class HorrorEnemyAI : MonoBehaviour
                     return;
                 }
 
-                if (playerCandle.IsCandleOn || distToPlayer < minRadius)
+                if (playerCandle.candle_turned_on || distToPlayer < minRadius)
                 {
                     lastKnownPosition = playerTransform.position;
                     chaseMemoryTimer = 2.0f;
