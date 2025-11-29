@@ -57,7 +57,6 @@ public class LunarDudesController : MonoBehaviour
             StartCoroutine(RunDialogueCoroutine(thirdDialogue));
         }
 
-        OnLunarCutsceneFinished?.Invoke();
     }
 
     private IEnumerator RunDialogueCoroutine(List<DialogueLine> lines)
@@ -80,6 +79,7 @@ public class LunarDudesController : MonoBehaviour
         yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         textController.FadeOutText();
         //next scene
+        OnLunarCutsceneFinished?.Invoke();
         Debug.Log("next scene");
     }
 

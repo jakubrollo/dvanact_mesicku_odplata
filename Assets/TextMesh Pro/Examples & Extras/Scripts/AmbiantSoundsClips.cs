@@ -1,48 +1,113 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
+using UnityEngine.Audio;
 
-namespace TMPro.Examples
+public class AmbientClipsManager : MonoBehaviour
 {
+    public bool DISABLE_AMBIENTS = false;
 
-    public class SimpleScript : MonoBehaviour
+    public AudioSource AmbientAudioSource;
+    public AudioSource MusicAudioSource;
+    public GameProgressionManager ProgressionManager;
+
+    [Header("Hut Ambiance")]
+    public AudioClip HutCampfire;
+    public AudioClip Snoring;
+    public AudioClip HutMusic;
+    public AudioClip DoorSound;
+
+    [Header("Forest Ambiance")]
+    public AudioClip ForestAmbianceMusic;
+    public AudioClip ForestAmbianceNature;
+    public AudioClip ChirpingSound;
+    public AudioClip GhostSound;
+
+    private string scene = "";
+    private float randomSoundTimer = 0f;
+
+    public void PlayRandomForrestSound()
     {
-        public AudioSource AmbientAudioSource;
+        if (DISABLE_AMBIENTS) return;
 
-        [Header("Hut Ambiance")]
-        public AudioClip HutCampfire;
-        public AudioClip Snoring;
-        public AudioClip HutMusic;
-        public AudioClip DoorSound;
+        double GhostPropability = 0.6f;
+        var rnd = new System.Random();
 
-        [Header("Forest Ambiance")]
-        public AudioClip ForestAmbianceMusic;
-        public AudioClip ForestAmbianceNature;
-        public AudioClip ChirpingSound;
-        public AudioClip GhostSound;
-
-        public void PlayRandomForrestSound()
+        if (rnd.NextDouble() < GhostPropability)
         {
-            double GhostPropability = 0.3;
-            var rnd = new System.Random();
+            AmbientAudioSource.PlayOneShot(GhostSound);
+        }
+        else
+        {
+            AmbientAudioSource.PlayOneShot(ChirpingSound);
+        }
+    }
 
-            if (rnd.NextDouble() < GhostPropability)
-            {
-                AmbientAudioSource.PlayOneShot(GhostSound);
-            }
-            else
-            {
-                AmbientAudioSource.PlayOneShot(ChirpingSound);
-            }
+    public void RunAmbientMusicBasedOnScene(string sceneName)
+    {
+        if (DISABLE_AMBIENTS) return;
+        if (sceneName == scene) 
+            return;
+        print("RunAmbientMusicBasedOnScene");
+
+        scene = sceneName;
+        if (AmbientAudioSource.isPlaying)
+        {
+            AmbientAudioSource.Stop();
+        }
+        if (MusicAudioSource.isPlaying)
+        {
+            MusicAudioSource.Stop();
         }
 
-        void Start()
-        { 
-        }
+        MusicAudioSource.loop = true;
+        AmbientAudioSource.loop = true;
 
-        void Update()
+        switch (sceneName)
         {
+            case "Forest":
+                AmbientAudioSource.clip = ForestAmbianceNature;
+                AmbientAudioSource.Play();
+                MusicAudioSource.clip = ForestAmbianceMusic;
+                MusicAudioSource.Play();
+                break;
+            case "Cabin":
+                AmbientAudioSource.clip = HutCampfire;
+                AmbientAudioSource.Play();
+                MusicAudioSource.clip = HutMusic;
+                MusicAudioSource.Play();
+                break;
+            default: break;
+        }
+    }
 
+    public void CloseDoorSound()
+    {
+        print("CloseDoorSound");
+        if (DISABLE_AMBIENTS) return;
+        AmbientAudioSource.PlayOneShot(DoorSound);
+    }
+
+    void Start()
+    { 
+        MusicAudioSource.loop = true;
+        AmbientAudioSource.loop = true;
+    }
+
+    void Update()
+    {
+        RunAmbientMusicBasedOnScene(ProgressionManager.CurrentSceneName());
+
+        if (scene == "Forest")
+        {
+            randomSoundTimer += Time.deltaTime;
+
+            if (randomSoundTimer >= 22f)
+            {
+                print("Play random sound!");
+                randomSoundTimer = 0f;  
+                PlayRandomForrestSound();  
+            }
         }
     }
 }
