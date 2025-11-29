@@ -238,5 +238,5 @@ MonoBehaviour:
   fadeInSpeed: 0.01
   fadeOutSpeed: 4
   pointLight: {fileID: 5702578298176163888}
-  maxLightIntensity: 1
+  maxLightIntensity: 3
   playerCandle: {fileID: 0}
