@@ -1,0 +1,619 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &453292050290959999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 499332836049677561}
+  - component: {fileID: 5235208279261908804}
+  m_Layer: 0
+  m_Name: Virtual Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &499332836049677561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453292050290959999}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.06144135, y: 0.16880965, z: -0.010544022, w: 0.9836753}
+  m_LocalPosition: {x: 4.869339, y: 1.65, z: -7.5065384}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4055708043848913304}
+  m_Father: {fileID: 3752581151845666801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5235208279261908804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453292050290959999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineVirtualCamera
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 0
+  m_StandbyUpdate: 2
+  m_LookAt: {fileID: 3904145617036867982}
+  m_Follow: {fileID: 3155195532226980023}
+  m_Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    LensShift: {x: 0, y: 0}
+    GateFit: 2
+    FocusDistance: 10
+    m_SensorSize: {x: 1, y: 1}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
+  m_ComponentOwner: {fileID: 4055708043848913304}
+--- !u!1 &4321055355930890576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4055708043848913304}
+  - component: {fileID: 5980722865895998748}
+  - component: {fileID: 2258822169866924905}
+  - component: {fileID: 1818504025338808472}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4055708043848913304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321055355930890576}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 499332836049677561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5980722865895998748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321055355930890576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachinePipeline
+--- !u!114 &2258822169866924905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321055355930890576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineComposer
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 0
+  m_HorizontalDamping: 0.5
+  m_VerticalDamping: 0.5
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_SoftZoneWidth: 0.8
+  m_SoftZoneHeight: 0.8
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+--- !u!114 &1818504025338808472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321055355930890576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418e42c7d0405cc48a7b83f63ea53bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineTrackedDolly
+  m_Path: {fileID: 3502805910236363710}
+  m_PathPosition: 0
+  m_PositionUnits: 0
+  m_PathOffset: {x: 0, y: 0, z: 0}
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 1
+  m_CameraUp: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AutoDolly:
+    m_Enabled: 1
+    m_PositionOffset: 0
+    m_SearchRadius: 2
+    m_SearchResolution: 5
+--- !u!1 &7373735740303348875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3995742574259500189}
+  - component: {fileID: 3502805910236363710}
+  m_Layer: 0
+  m_Name: Dolly Track
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3995742574259500189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7373735740303348875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.72, y: 1.65, z: -5.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3752581151845666801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3502805910236363710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7373735740303348875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineSmoothPath
+  m_Resolution: 46
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 1
+  m_Waypoints:
+  - position: {x: -2.8506622, y: 0, z: -2.366539}
+    roll: 0
+  - position: {x: -8.778702, y: 0, z: 3.9975967}
+    roll: 0
+  - position: {x: -7.8401184, y: 0, z: 13.219635}
+    roll: 0
+  - position: {x: -1.2326202, y: 0, z: 17.641434}
+    roll: 0
+  - position: {x: 7.4220123, y: 0, z: 16.301247}
+    roll: 0
+  - position: {x: 12.328354, y: 0, z: 8.134888}
+    roll: 0
+  - position: {x: 9.424713, y: 0, z: 0.56438446}
+    roll: 0
+  - position: {x: 3.4309235, y: 0, z: -2.9462662}
+    roll: 0
+--- !u!1 &7494569948389439216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2592792210949168695}
+  - component: {fileID: 3351069621369610566}
+  - component: {fileID: 2865306554126600200}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2592792210949168695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494569948389439216}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.742, y: 0.49, z: 3.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3752581151845666801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &3351069621369610566
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494569948389439216}
+  m_Enabled: 1
+  serializedVersion: 11
+  m_Type: 2
+  m_Color: {r: 1, g: 0.7607843, b: 0.5176471, a: 1}
+  m_Intensity: 10.74
+  m_Range: 6.61
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
+--- !u!114 &2865306554126600200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494569948389439216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
+--- !u!1 &7811065190119044665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3155195532226980023}
+  - component: {fileID: 4621551365595200888}
+  m_Layer: 0
+  m_Name: Dolly Cart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3155195532226980023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811065190119044665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.5286669, z: 0, w: 0.8488294}
+  m_LocalPosition: {x: 4.869339, y: 1.65, z: -7.5065384}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3752581151845666801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4621551365595200888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811065190119044665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a9c787e5d1bbf48a389834c4a9641c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineDollyCart
+  m_Path: {fileID: 3502805910236363710}
+  m_UpdateMethod: 0
+  m_PositionUnits: 1
+  m_Speed: 3
+  m_Position: 0
+--- !u!1 &8406882851893322785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3752581151845666801}
+  - component: {fileID: 6875719813415869661}
+  m_Layer: 0
+  m_Name: LunarDudes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3752581151845666801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406882851893322785}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 235.97935, y: 0, z: 80.69528}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4696679205315178111}
+  - {fileID: 2592792210949168695}
+  - {fileID: 3995742574259500189}
+  - {fileID: 499332836049677561}
+  - {fileID: 3155195532226980023}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6875719813415869661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406882851893322785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b7e57dc45a6d14eac480edf7d9d7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  pauseBetweenLines: 10
+  skipButton: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  textController: {fileID: 0}
+  rotatingCamera: {fileID: 5235208279261908804}
+  firstDialogue:
+  - speakerName: Leden
+    lineText: "My jsme \u010Das, jsme rok po boku bod. Co tu d\u011Bl\xE1\u0161 osobu!"
+  - speakerName: "Maru\u0161ka"
+    lineText: "Ah kone\u010Dn\u011B lid\xE9, u\u017E jsem se b\xE1la, \u017Ee se
+      mnou bude konec."
+  - speakerName: "Maru\u0161ka"
+    lineText: "Dob\u0159\xED lid\xE9, hled\xE1m tu jen \xFAto\u010Di\u0161t\u011B
+      a tepl\xE9 m\xEDsto."
+  - speakerName: "B\u0159ezen"
+    lineText: "Co tu d\u011Bl\xE1\u0161 v takov\xFD \u010Das a je\u0161t\u011B v
+      takovou hodinu."
+  - speakerName: "Maru\u0161ka"
+    lineText: "Ztr\xE1pen\xE1 zimou se \u017Eenu plnit \xFAkol od m\xE9 zl\xE9 Macechy."
+  - speakerName: Leden
+    lineText: "A co je to za \xFAkol?"
+  - speakerName: "Maru\u0161ka"
+    lineText: "M\xE1 Macecha m\u011B donutila sehnat v t\xE9to zim\u011B pro mou
+      sestru fialky."
+  - speakerName: Leden
+    lineText: "Sice ti nem\u016F\u017Ee dovolit mezi n\xE1s usednout."
+  - speakerName: Leden
+    lineText: "Av\u0161ak vzhledek k tv\xE9 dobr\xE9 du\u0161i, pomoci ti m\u016F\u017Eeme. "
+  - speakerName: 
+    lineText: "P\u0159ed Ma\u0159enkou se objevila zele\u0148, tak si Maru\u0161ka
+      natrhala fialky."
+  - speakerName: "Maru\u0161ka"
+    lineText: "Nev\xEDm kdo jste, ale tis\xEDcer\xE9t\xE9 d\xEDky, nech\u0165 v\xE1s
+      za to \u0161t\u011Bst\u011Bna za odm\u011Bn\xED."
+  - speakerName: Leden
+    lineText: "Nyn\xED jdi bezpe\u010Dn\u011B dom\u016F, les by m\u011Bl b\xFDt nyn\xED
+      bezpe\u010Dn\xFD."
+  - speakerName: Leden
+    lineText: "Kdyby jsi n\xE1s zas hledala, pamatuj hledej na\u0161e znamen\xED
+      v lese."
+  secondDialogue:
+  - speakerName: Leden
+    lineText: "D\u011Bv\u010De co tu zas d\u011Bl\xE1\u0161, lesy je je\u0161t\u011B
+      nebezpe\u010Dn\u011Bj\u0161\xED."
+  - speakerName: "Maru\u0161ka"
+    lineText: "M\xE1 Macecha se sestrou m\u011B poslali pro jahody."
+  - speakerName: "Maru\u0161ka"
+    lineText: "Vid\u011Bla jsem n\u011Bco v lese, co to je?"
+  - speakerName: Leden
+    lineText: "Z lesa v tyto hodiny vyb\xEDhaj\xED v\u0161elijak\xE1 nebezpe\u010D\xED,
+      m\u011Bla by ses vr\xE1tit dom\u016F."
+  - speakerName: "Maru\u0161ka"
+    lineText: "Bez jahod m\u011B nechaj\xED venku."
+  - speakerName: Leden
+    lineText: "Bud\xED\u017E, pom\u016F\u017Eeme ti. Chod se toho brat\u0159e \u010Dervne."
+  - speakerName: 
+    lineText: "P\u0159ed Maru\u0161kou za\u0161n\u011B\u017Een\xFD ke\u0159 zezelen\u011Bl
+      a narostly na n\u011Bm jahody."
+  - speakerName: "Maru\u0161ka"
+    lineText: "D\u011Bkuji moc dob\u0159\xED mu\u017Eov\xE9."
+  - speakerName: Leden
+    lineText: "Nyn\xED jdi dom\u016F, cesta je u\u017E bezpe\u010Dn\xE1."
+  thirdDialogue:
+  - speakerName: Leden
+    lineText: "Zas ty? Co tentokr\xE1t? pomeran\u010De?"
+  - speakerName: "Maru\u0161ka"
+    lineText: "Dob\u0159\xED mu\u017Eov\xE9 chv\xE1t\xE1m za v\xE1mi, m\xE1lem by
+      m\u011B dostal les\xA8."
+  - speakerName: "Maru\u0161ka"
+    lineText: "\u017D\xE1d\xE1m v\xE1s jen o p\xE1r jablek."
+  - speakerName: Leden
+    lineText: "Budi\u017E, brat\u0159e z\xE1\u0159\xED vyst\u0159\xEDdej m\u011B."
+  - speakerName: 
+    lineText: "P\u0159ed Maru\u0161kou strom ot\u0159ese ze sebe sn\xEDh a narostou
+      na n\u011Bm jablka."
+  - speakerName: "Maru\u0161ka"
+    lineText: "D\u011Bkuji dob\u0159\xED mu\u017Eov\xE9. "
+  - speakerName: Leden
+    lineText: "Hlavn\u011B u\u017E jdi dom\u016F, cesta je bezpe\u010Dn\xE1."
+  OnLunarCutsceneStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLunarCutsceneFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  stage: 0
+--- !u!1001 &5091123283797674388
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3752581151845666801}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.7734375
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.4013062
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: m_Name
+      value: lunar_dudes_cyrcle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+--- !u!4 &3904145617036867982 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8109015249633046554, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+  m_PrefabInstance: {fileID: 5091123283797674388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4696679205315178111 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+  m_PrefabInstance: {fileID: 5091123283797674388}
+  m_PrefabAsset: {fileID: 0}
