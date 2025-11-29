@@ -69,6 +69,9 @@ public class FirstStageManager : MonoBehaviour
     {
         float timer = 0f;
 
+        while (skipButton.action.IsPressed())
+            yield return null;
+
         while (timer < time)
         {
             timer += Time.deltaTime;
