@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/rolloj_preparation/Scenes/MainMenu.unity
+    guid: 8a4fd5203e98fdc47b47397c6f08f858
+  - enabled: 1
+    path: Assets/rolloj_preparation/Scenes/StoryboardIntro.unity
+    guid: 6a162b796b0b3284aa1c940677314143
+  - enabled: 1
+    path: Assets/Filip/Scenes/Cabin.unity
+    guid: 1a9679194ef246d4ebee69dea8935f67
+  - enabled: 1
+    path: Assets/Filip/Scenes/Forest.unity
+    guid: 3fe844f1eb86623499fc44665e739d15
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
