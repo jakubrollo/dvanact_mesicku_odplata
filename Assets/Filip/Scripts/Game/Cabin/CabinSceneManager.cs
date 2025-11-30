@@ -2,13 +2,20 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum CabinStage
+{
+    First,
+    Second,
+    Third,
+    Fourth
+}
+
 public class CabinSceneManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference skipButton;
     [SerializeField] private GameObject player;
 
     [SerializeField] private DialogueTextController textController;
-    [SerializeField] private CabinStage stage  = CabinStage.First;
 
     [SerializeField] private FirstStageManager firstStageManager;
     [SerializeField] private SecondStageManager secondStageManager;
@@ -28,16 +35,9 @@ public class CabinSceneManager : MonoBehaviour
     [SerializeField] private Transform secondPCPos;
     [SerializeField] private Transform secondMotherPos;
     [SerializeField] private Transform secondDaughterPos;
-    public enum CabinStage
-    {
-        First,
-        Second,
-        Third,
-        Fourth
-    }
     void Start()
     {
-        RunCabinScene(stage);
+        RunCabinScene(GameProgressionManager.Instance.GetCurrentLevelData().CabinStage);
     }
 
     // Update is called once per frame
@@ -61,7 +61,7 @@ public class CabinSceneManager : MonoBehaviour
         {
             thirdStageManager.RunStage(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
         }
-        else if (stage == CabinStage.Third)
+        else if (stage == CabinStage.Fourth)
         {
             fourthStageManager.RunStage(textController, skipButton, player, characterMother, characterDaugther, dialogueCamera);
         }

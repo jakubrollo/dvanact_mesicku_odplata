@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2742901562078215935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8568017975734266081}
+  - component: {fileID: 220027353782749678}
+  m_Layer: 0
+  m_Name: MaruskaMonolgueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8568017975734266081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742901562078215935}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 632.6468, y: 242.37915, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &220027353782749678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2742901562078215935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5554730df9ee02845b756e0ee70c2f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  pauseBetweenLines: 6
+  skipButton: {fileID: 2121202755351712842, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
+  textController: {fileID: 0}
+  firstDialogue:
+  - speakerName: "Maru\u0161ka"
+    lineText: "Kde m\xE1m naj\xEDt v t\xE9hle zim\u011B fialky?"
+  - speakerName: "Maru\u0161ka"
+    lineText: "M\xE1m strach, takhle pozd\u011B jsem je\u0161t\u011B venku nebyla."
+  - speakerName: "Maru\u0161ka"
+    lineText: "Hele zrc\xE1tko, stejn\xE9 jako macechy. "
+  - speakerName: "Maru\u0161ka"
+    lineText: "Kdo ho sem dal? T\u0159eba mi pom\u016F\u017Ee."
+  hint: "Pou\u017Eil lampi\u010Dku pro hled\xE1n\xED zrc\xE1tek."
+  OnCutsceneStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCutsceneFinished:
+    m_PersistentCalls:
+      m_Calls: []
