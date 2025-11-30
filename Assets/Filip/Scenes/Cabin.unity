@@ -1086,7 +1086,7 @@ MonoBehaviour:
   - sceneName: Cabin
     spawnPointIndex: 0
     activeEventIndex: 0
-    ForestStage: 0
+    ForestStage: 1
     CabinStage: 1
     hasEnemy: 0
     enemySpawnPointIndex: 0
@@ -1121,7 +1121,7 @@ MonoBehaviour:
     hasEnemy: 1
     enemySpawnPointIndex: 0
     chaseSpeed: 17
-    noticeBuildUpTime: 10
+    noticeBuildUpTime: 12
     maxDetectionRadius: 180
   - sceneName: Cabin
     spawnPointIndex: 0
@@ -1464,8 +1464,8 @@ Transform:
   m_GameObject: {fileID: 516672866}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.72, y: 1.61, z: 4.6385}
-  m_LocalScale: {x: 3.6398878, y: 3.95876, z: 3.6025362}
+  m_LocalPosition: {x: -2.72, y: 1.61, z: 7.3331}
+  m_LocalScale: {x: 3.6398878, y: 3.95876, z: 4.297907}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 194646022}
@@ -1483,6 +1483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   firstStageManager: {fileID: 1089105670}
+  candleBehavior: {fileID: 0}
 --- !u!65 &516672869
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3122,15 +3123,18 @@ MonoBehaviour:
   DISABLE_AMBIENTS: 0
   AmbientAudioSource: {fileID: 62940425}
   MusicAudioSource: {fileID: 1212383064}
+  WalkingAudioSource: {fileID: 0}
   ProgressionManager: {fileID: 453321113}
   HutCampfire: {fileID: 8300000, guid: 4edd488e15499504198042f8c6afaead, type: 3}
   Snoring: {fileID: 8300000, guid: cf87d73c2185f604d98c7e044e274a51, type: 3}
   HutMusic: {fileID: 8300000, guid: b6780fc319f9d384580d8bfe17b327fd, type: 3}
   DoorSound: {fileID: 8300000, guid: 4c0c04ecd38a22a4293d48867327afa0, type: 3}
+  StepsHut: {fileID: 0}
   ForestAmbianceMusic: {fileID: 8300000, guid: 7bea25073f9994c468fe2be214e8b66a, type: 3}
   ForestAmbianceNature: {fileID: 8300000, guid: ee4d281bd2dfbe34c97fd414125fb333, type: 3}
   ChirpingSound: {fileID: 8300000, guid: 27f4496bb4c7f794cbca18773e9ca535, type: 3}
   GhostSound: {fileID: 8300000, guid: caebed8065a88e847b300febfdd62a2b, type: 3}
+  StepsForest: {fileID: 0}
 --- !u!4 &1251700395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6408612430985893478, guid: 11bcb01c34183fb4dbfdc6e63328b38f, type: 3}
@@ -3246,12 +3250,14 @@ MonoBehaviour:
   enemy: {fileID: 0}
   curAmbientAudioSource: {fileID: 62940425}
   curMusicAudioSource: {fileID: 1212383064}
+  curWalkAudioSource: {fileID: 0}
   playerSpawnPoints:
   - {fileID: 1637637620}
   enemySpawnPoints:
   - {fileID: 0}
   eventsAndExits:
   - {fileID: 0}
+  pcMonolog: {fileID: 0}
 --- !u!4 &1294144382
 Transform:
   m_ObjectHideFlags: 0

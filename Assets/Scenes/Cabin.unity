@@ -1500,8 +1500,8 @@ MonoBehaviour:
   - sceneName: Cabin
     spawnPointIndex: 0
     activeEventIndex: 0
-    ForestStage: 0
-    CabinStage: 0
+    ForestStage: 1
+    CabinStage: 1
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1509,19 +1509,19 @@ MonoBehaviour:
     maxDetectionRadius: 100
   - sceneName: Forest
     spawnPointIndex: 0
-    activeEventIndex: 0
+    activeEventIndex: 1
     ForestStage: 1
     CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
-    chaseSpeed: 11
-    noticeBuildUpTime: 20
-    maxDetectionRadius: 100
+    chaseSpeed: 14
+    noticeBuildUpTime: 15
+    maxDetectionRadius: 150
   - sceneName: Cabin
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 1
-    CabinStage: 0
+    CabinStage: 2
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1529,19 +1529,19 @@ MonoBehaviour:
     maxDetectionRadius: 100
   - sceneName: Forest
     spawnPointIndex: 0
-    activeEventIndex: 0
+    activeEventIndex: 2
     ForestStage: 2
     CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
-    chaseSpeed: 11
-    noticeBuildUpTime: 20
-    maxDetectionRadius: 100
+    chaseSpeed: 17
+    noticeBuildUpTime: 12
+    maxDetectionRadius: 180
   - sceneName: Cabin
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 2
-    CabinStage: 0
+    CabinStage: 3
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1952,8 +1952,8 @@ Transform:
   m_GameObject: {fileID: 516672866}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.72, y: 1.61, z: 4.6385}
-  m_LocalScale: {x: 3.6398878, y: 3.95876, z: 3.6025362}
+  m_LocalPosition: {x: -2.3543, y: 1.61, z: 7.3817}
+  m_LocalScale: {x: 4.371141, y: 3.95876, z: 3.5446918}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 194646022}
