@@ -84,14 +84,15 @@ public class SecondStageManager : MonoBehaviour
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
-       // dialogueVirtualCamera.Priority = 0;
-     //   firstPersonController.canMove = true;
+        // dialogueVirtualCamera.Priority = 0;
+        //   firstPersonController.canMove = true;
 
-       // yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
+        Debug.Log("next scene");
+        // yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         dialogueTextController.FadeOutText();
         //next scene
-        OnStageFinished?.Invoke();
         Debug.Log("next scene");
+        OnStageFinished?.Invoke();
     }
 
     private IEnumerator WaitForTimeOrSkip(float time)

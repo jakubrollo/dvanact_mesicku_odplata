@@ -20,6 +20,7 @@ public class GameProgressionManager : MonoBehaviour
         public int activeEventIndex;
 
         public LunarDudesStage ForestStage;
+        public CabinStage CabinStage;
 
         [Header("Enemy Configuration")]
         public bool hasEnemy;
@@ -32,6 +33,7 @@ public class GameProgressionManager : MonoBehaviour
     [Header("The Timeline")]
     [Tooltip("Define the order of the game here.")]
     [SerializeField] private LevelData[] progressionSteps;
+
 
     private int currentStepIndex = 0;
 
@@ -94,11 +96,12 @@ public class GameProgressionManager : MonoBehaviour
     public void LoadNextLevel()
     {
         currentStepIndex++;
-
+        Debug.Log("Loading next level, step index: " + currentStepIndex);
         if (currentStepIndex >= progressionSteps.Length)
         {
             Debug.Log("Game Finished!");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+            IntroOutroInfoHolder.stageScene = Stage.Second;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("ForestCutscene");
             Destroy(gameObject);
             return;
         }
