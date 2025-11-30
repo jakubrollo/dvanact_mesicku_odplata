@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Cinemachine;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(AudioSource))]
@@ -16,6 +17,7 @@ public class HorrorEnemyAI : MonoBehaviour
 
     [Tooltip("Drag your 'PlayerFollowCamera' (the Cinemachine Virtual Camera object) here")]
     [SerializeField] private GameObject playerVirtualCameraObject; // <--- NEW REFERENCE
+    [SerializeField] private CinemachineVirtualCamera deathCameraObject;
 
     [Tooltip("Drag the Player's movement script here so we can disable it on death")]
     [SerializeField] private MonoBehaviour playerMovementScript;
@@ -73,6 +75,7 @@ public class HorrorEnemyAI : MonoBehaviour
     private Coroutine activeFadeCoroutine;
     private bool isForcedFlee = false;
     private Vector3 lastKnownPosition;
+    private Transform killCamLookTarget;
     public void TriggerFlee()
     {
         isForcedFlee = true;
@@ -127,24 +130,26 @@ public class HorrorEnemyAI : MonoBehaviour
         HandleStateLogic();
     }
 
-    // --- UPDATED: Works by taking control from Cinemachine ---
+
     void HandleKillCameraLock()
     {
-        if (playerCameraTransform != null)
+        if (playerVirtualCameraObject != null && deathCameraObject != null)
         {
-            // Calculate where the enemy's eyes are
-            Vector3 enemyEyes = transform.position + Vector3.up * enemyEyeHeight;
+            var vcam = playerVirtualCameraObject.GetComponent<CinemachineVirtualCamera>();
+            deathCameraObject.transform.position = playerCameraTransform.position;
+            vcam.Priority = 0;
+            deathCameraObject.Priority = 20;
 
-            // Determine direction from Camera to Enemy Eyes
-            Vector3 direction = (enemyEyes - playerCameraTransform.position).normalized;
+            if (killCamLookTarget == null)
+            {
+                killCamLookTarget = new GameObject("KillCamLookTarget").transform;
+            }
 
-            // Smoothly rotate camera towards enemy
-            Quaternion lookRot = Quaternion.LookRotation(direction);
-
-            // Note: Since we disabled the Cinemachine Object, this manual rotation now works!
-            playerCameraTransform.rotation = Quaternion.Slerp(playerCameraTransform.rotation, lookRot, Time.deltaTime * 8f);
+            killCamLookTarget.position = transform.position + Vector3.up * enemyEyeHeight;
+            deathCameraObject.LookAt = killCamLookTarget;
         }
     }
+
 
     void HandleNoticeLogic()
     {
@@ -329,8 +334,6 @@ public class HorrorEnemyAI : MonoBehaviour
                 // 2. Disable Player Controls
                 if (playerMovementScript != null) playerMovementScript.enabled = false;
 
-                // 3. DISABLE CINEMACHINE (Crucial!)
-                if (playerVirtualCameraObject != null) playerVirtualCameraObject.SetActive(false);
 
                 // 4. Play Crunch Sound
                 mainAudioSource.Stop();
@@ -410,6 +413,9 @@ public class HorrorEnemyAI : MonoBehaviour
         // Tell the Manager to reload the current level
         if (GameProgressionManager.Instance != null)
         {
+            var vcam = playerVirtualCameraObject.GetComponent<CinemachineVirtualCamera>();
+            vcam.Priority = 15;
+            deathCameraObject.Priority = 0;
             GameProgressionManager.Instance.ReloadCurrentLevel();
         }
         else

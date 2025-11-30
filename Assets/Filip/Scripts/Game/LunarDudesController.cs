@@ -7,6 +7,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+
+public enum LunarDudesStage
+{
+    First,
+    Second,
+    Third
+}
 public class LunarDudesController : MonoBehaviour
 {
     [SerializeField] private float pauseBetweenLines = 3f;
@@ -25,18 +32,13 @@ public class LunarDudesController : MonoBehaviour
     public UnityEvent OnLunarCutsceneStart;
     public UnityEvent OnLunarCutsceneFinished;
 
-    public enum LunarDudesStage
-    {
-        First,
-        Second,
-        Third
-    }
+
 
     [SerializeField] LunarDudesStage stage  = LunarDudesStage.First;
 
     public void Start()
     {
-        ActivateLunarDudesCutscene(stage);
+        //ActivateLunarDudesCutscene(stage);
     }
 
 
@@ -74,9 +76,10 @@ public class LunarDudesController : MonoBehaviour
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
-      //  rotatingCamera.Priority = 0;
 
-       // yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
+        //rotatingCamera.Priority = 0;
+
+        //yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         textController.FadeOutText();
         //next scene
         OnLunarCutsceneFinished?.Invoke();
