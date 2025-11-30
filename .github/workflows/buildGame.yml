@@ -188,7 +188,7 @@ jobs:
           done
 
   deploy:
-    if: true # 🔴 Enable / disable ITCH deploy
+    if: false # 🔴 Enable / disable ITCH deploy
     name: Butler Push to Itch
     runs-on: ubuntu-latest
     strategy:
