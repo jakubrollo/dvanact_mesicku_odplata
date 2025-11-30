@@ -442,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 8406882851893322785}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 235.97935, y: 0, z: 80.69528}
+  m_LocalPosition: {x: 235.97935, y: -0.14, z: 80.69528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -543,6 +543,7 @@ MonoBehaviour:
     lineText: "D\u011Bkuji dob\u0159\xED mu\u017Eov\xE9. "
   - speakerName: Leden
     lineText: "Hlavn\u011B u\u017E jdi dom\u016F, cesta je bezpe\u010Dn\xE1."
+  enemy: {fileID: 0}
   OnLunarCutsceneStart:
     m_PersistentCalls:
       m_Calls: []
@@ -550,6 +551,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   stage: 0
+  player: {fileID: 0}
 --- !u!1001 &9031443416785649915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -560,15 +562,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.675827
+      value: 8.742
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.0325394
+      value: 3.38
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
       propertyPath: m_LocalRotation.w

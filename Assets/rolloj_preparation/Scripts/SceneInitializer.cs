@@ -32,6 +32,19 @@ public class SceneInitializer : MonoBehaviour
         }
     }
 
+    public void LoadNextLevel()
+    {
+        if (GameProgressionManager.Instance != null)
+        {
+            print("Loading next level via SceneInitializer...");
+            GameProgressionManager.Instance.LoadNextLevel();
+        }
+        else
+        {
+            Debug.LogWarning("No Manager found. Cannot load next level.");
+        }
+    }
+
     void SetupScene(GameProgressionManager.LevelData data)
     {
         // --- 1. Setup Player Position ---

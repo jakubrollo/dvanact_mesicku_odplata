@@ -376,7 +376,6 @@ MonoBehaviour:
   skipButton: {fileID: 2121202755351712842, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
   player: {fileID: 1637637619}
   textController: {fileID: 822074980}
-  stage: 0
   firstStageManager: {fileID: 1089105670}
   secondStageManager: {fileID: 289094208}
   thirdStageManager: {fileID: 2005898123}
@@ -562,8 +561,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -1068,6 +1067,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 0
+    CabinStage: 0
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1077,6 +1077,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 0
+    CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1086,6 +1087,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 0
+    CabinStage: 1
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1093,17 +1095,19 @@ MonoBehaviour:
     maxDetectionRadius: 100
   - sceneName: Forest
     spawnPointIndex: 0
-    activeEventIndex: 0
+    activeEventIndex: 1
     ForestStage: 1
+    CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
-    chaseSpeed: 11
-    noticeBuildUpTime: 20
-    maxDetectionRadius: 100
+    chaseSpeed: 14
+    noticeBuildUpTime: 15
+    maxDetectionRadius: 150
   - sceneName: Cabin
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 1
+    CabinStage: 2
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1111,23 +1115,24 @@ MonoBehaviour:
     maxDetectionRadius: 100
   - sceneName: Forest
     spawnPointIndex: 0
-    activeEventIndex: 0
+    activeEventIndex: 2
     ForestStage: 2
+    CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
-    chaseSpeed: 11
-    noticeBuildUpTime: 20
-    maxDetectionRadius: 100
+    chaseSpeed: 17
+    noticeBuildUpTime: 10
+    maxDetectionRadius: 180
   - sceneName: Cabin
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 2
+    CabinStage: 3
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
     noticeBuildUpTime: 20
     maxDetectionRadius: 100
-  Ambients: {fileID: 1243282560}
 --- !u!4 &453321114
 Transform:
   m_ObjectHideFlags: 0
@@ -1729,7 +1734,7 @@ SpriteRenderer:
   m_Size: {x: 6.4, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &576829082
@@ -2674,8 +2679,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -3876,8 +3881,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -4499,7 +4504,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!136 &1845405994
@@ -5003,8 +5008,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
