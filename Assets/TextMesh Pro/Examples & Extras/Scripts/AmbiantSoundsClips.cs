@@ -70,6 +70,7 @@ public class AmbientClipsManager : MonoBehaviour
 
         MusicAudioSource.loop = true;
         AmbientAudioSource.loop = true;
+        Debug.Log("scenename: " + sceneName);
 
         switch (sceneName)
         {
@@ -81,6 +82,7 @@ public class AmbientClipsManager : MonoBehaviour
                 MusicAudioSource.Play();
                 break;
             case "Cabin":
+                Debug.Log("got cabinnned lol");
                 CloseDoorSound();
                 AmbientAudioSource.clip = HutCampfire;
                 AmbientAudioSource.Play();

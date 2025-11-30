@@ -54,7 +54,7 @@ public class GameProgressionManager : MonoBehaviour
 
     public string CurrentSceneName()
     {
-        if (progressionSteps.Count() >= currentStepIndex)
+        if (progressionSteps.Count() == 0)
         {
             //print("progressionSteps index out of range!");
             return "Forest";
