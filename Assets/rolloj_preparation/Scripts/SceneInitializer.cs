@@ -19,12 +19,21 @@ public class SceneInitializer : MonoBehaviour
     [Tooltip("List of all Exits/Events. Only ONE will be active.")]
     [SerializeField] private GameObject[] eventsAndExits;
 
+    [SerializeField] private PCMonologueManager pcMonolog;
+
+
     void Start()
     {
         // 1. Get Data from Manager
         if (GameProgressionManager.Instance != null)
         {
             var data = GameProgressionManager.Instance.GetCurrentLevelData();
+
+            if (data.ForestStage == LunarDudesStage.First)
+            {
+                pcMonolog.ActivatePCMonologue(true);
+            }
+
             SetupScene(data);
             AmbientClipsManager ambientManager =GameProgressionManager.Instance.GetComponentInChildren<AmbientClipsManager>();
             if(ambientManager != null)

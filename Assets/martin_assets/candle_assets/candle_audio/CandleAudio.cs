@@ -37,9 +37,9 @@ public class CandleAudio : MonoBehaviour
     public void TurnOff()
     {
         audioSource.PlayOneShot(candleExtinguishSound);
-        Debug.Log("candle extinguished");
-        Debug.Log(candleExtinguishSound);
-        audioSource.PlayOneShot(candleExtinguishSound2);
+        //Debug.Log("candle extinguished");
+        //Debug.Log(candleExtinguishSound);
+        //audioSource.PlayOneShot(candleExtinguishSound2);
 
         if (loopAudioSource != null)
         {

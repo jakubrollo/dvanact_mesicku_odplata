@@ -24,11 +24,11 @@ public class PCMonologueManager : MonoBehaviour
 
     public void Start()
     {
-        ActivateLunarDudesCutscene(true);
+
     }
 
 
-    public void ActivateLunarDudesCutscene(bool run)
+    public void ActivatePCMonologue(bool run)
     {
         OnCutsceneStart?.Invoke();
         if (run)
