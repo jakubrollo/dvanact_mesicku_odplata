@@ -76,6 +76,8 @@ public class HorrorEnemyAI : MonoBehaviour
     private bool isForcedFlee = false;
     private Vector3 lastKnownPosition;
     private Transform killCamLookTarget;
+    public bool cameraIsLocked = false;
+
     public void TriggerFlee()
     {
         isForcedFlee = true;
@@ -133,8 +135,10 @@ public class HorrorEnemyAI : MonoBehaviour
 
     void HandleKillCameraLock()
     {
+        if (cameraIsLocked) return;
         if (playerVirtualCameraObject != null && deathCameraObject != null)
         {
+            cameraIsLocked = true;
             var vcam = playerVirtualCameraObject.GetComponent<CinemachineVirtualCamera>();
             deathCameraObject.transform.position = playerCameraTransform.position;
             vcam.Priority = 0;
@@ -416,6 +420,7 @@ public class HorrorEnemyAI : MonoBehaviour
             var vcam = playerVirtualCameraObject.GetComponent<CinemachineVirtualCamera>();
             vcam.Priority = 15;
             deathCameraObject.Priority = 0;
+            cameraIsLocked = false;
             GameProgressionManager.Instance.ReloadCurrentLevel();
         }
         else

@@ -6,6 +6,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+
+public enum Stage
+{
+    First,
+    Second
+}
+
+
 public class IntoOutroCutsceneManager : MonoBehaviour
 {
     [SerializeField] private float pauseBetweenLines = 3f;
@@ -23,17 +31,11 @@ public class IntoOutroCutsceneManager : MonoBehaviour
     public UnityEvent OnCutsceneStart;
     public UnityEvent OnCutsceneFinished;
 
-    public enum Stage
-    {
-        First,
-        Second
-    }
-
-    [SerializeField] Stage stage = Stage.First;
+    [SerializeField] private Stage stage = Stage.First;
 
     public void Start()
     {
-        ActivateLunarDudesCutscene(stage);
+        ActivateLunarDudesCutscene(IntroOutroInfoHolder.stageScene);
     }
 
 
@@ -61,9 +63,9 @@ public class IntoOutroCutsceneManager : MonoBehaviour
         //Initial dialogue 
         rotatingCamera.Priority = 300;
 
-        for (int i = 0; i < firstDialogue.Count; i++)
+        for (int i = 0; i < lines.Count; i++)
         {
-            MakeCharacterTalk(firstDialogue[i]);
+            MakeCharacterTalk(lines[i]);
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
@@ -72,6 +74,16 @@ public class IntoOutroCutsceneManager : MonoBehaviour
        // yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         textController.FadeOutText();
         //next scene
+
+        if(IntroOutroInfoHolder.stageScene == Stage.First)
+        {
+            ScreenFader.Instance.FadeAndLoadScene("Cabin");
+        }
+        else if(IntroOutroInfoHolder.stageScene == Stage.Second)
+        {
+            ScreenFader.Instance.FadeAndLoadScene("MainMenu");
+        }
+
         Debug.Log("next scene");
     }
 
