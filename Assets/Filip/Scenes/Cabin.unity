@@ -1127,7 +1127,7 @@ MonoBehaviour:
     chaseSpeed: 11
     noticeBuildUpTime: 20
     maxDetectionRadius: 100
-  Ambients: {fileID: 0}
+  Ambients: {fileID: 1243282560}
 --- !u!4 &453321114
 Transform:
   m_ObjectHideFlags: 0
