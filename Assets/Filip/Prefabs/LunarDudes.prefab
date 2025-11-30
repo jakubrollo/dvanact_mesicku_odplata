@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   pauseBetweenLines: 10
-  skipButton: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  skipButton: {fileID: 2701944305936014713, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
   textController: {fileID: 0}
   rotatingCamera: {fileID: 5235208279261908804}
   firstDialogue:
@@ -598,10 +598,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7911303191070332059, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: -7627917915373503095, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: -4311201292867976383, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: -1427224795078924322, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: -875378630315347363, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: -801907702749143163, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
     - target: {fileID: 919132149155446097, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
       propertyPath: m_Name
       value: lunar_dudes_cyrcle
       objectReference: {fileID: 0}
+    - target: {fileID: 3584845406251417850, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: 3907500349478573960, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: 4718739519537122679, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: 5826575559792056959, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: 7166662244645592243, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
+    - target: {fileID: 7249193220994422990, guid: 641bdb1aed96cb540839e2108349a973, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: db8a2756b31be424ebb01574ad20ca50, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
