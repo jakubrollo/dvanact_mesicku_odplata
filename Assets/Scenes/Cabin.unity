@@ -861,7 +861,7 @@ MonoBehaviour:
   pauseBetweenLines: 20
   firstDialogue:
   - speakerName: "Maru\u0161ka"
-    lineText: "Uffff, matko\u2026 m\xE1m to, o\u010D jste m\u011B \u017E\xE1dala."
+    lineText: "Uffff, matko\u2026 M\xE1m to, o\u010D jste m\u011B \u017E\xE1dala."
   - speakerName: Holena
     lineText: Fialky? Kde jsi je sebrala?!
   - speakerName: Macecha
@@ -869,15 +869,15 @@ MonoBehaviour:
   - speakerName: "Maru\u0161ka"
     lineText: "Na\u0161la jsem je pod z\xE1v\u011Bj\xED."
   - speakerName: Macecha
-    lineText: "No jestli jsi tak chytr\xE1, tak je sem dej... a m\xE1m pro tebe dal\u0161\xED
+    lineText: "Dej to sem! Jestli jsi tak chytr\xE1, m\xE1m pro tebe dal\u0161\xED
       \xFAkol."
   - speakerName: "Maru\u0161ka"
-    lineText: "Ach, matko, pros\xEDm nepos\xEDlejte m\u011B znovu ven! Nen\xED tam
-      bezpe\u010Dno."
+    lineText: "Ach, mati\u010Dko, nepos\xEDlejte m\u011B, pros\xEDm, znovu ven! V\u017Edy\u0165
+      j\xE1 tam uhynu!"
   - speakerName: Macecha
     lineText: "Ml\u010D, jdi a p\u0159ines n\xE1m n\u011Bjak\xE9 jahody."
   - speakerName: "Maru\u0161ko"
-    lineText: "Dob\xEDr\xE1te si m\u011B?! Jahody? Te\u010F v zim\u011B?!"
+    lineText: "Jahody? Te\u010F v zim\u011B?!"
   - speakerName: Macecha a Holena
     lineText: "Bez jahody se nevracej! Bez tebe n\xE1m bude hej!"
   firstCameraSpot: {fileID: 46511657}
@@ -3284,13 +3284,12 @@ MonoBehaviour:
   - speakerName: "Maru\u0161ka"
     lineText: "Venku \u017E\xE1dn\xE9 nebylo, napadal sn\xEDh\u2026"
   - speakerName: Macecha
-    lineText: "Po\u0159\xE1d jen v\xFDmluvy! Mus\xED\u0161 se v\xEDc sna\u017Eit."
+    lineText: "V\xFDmluvy! Mus\xED\u0161 se v\xEDc sna\u017Eit, ty l\xEDn\xE1 zmije."
   - speakerName: Macecha
-    lineText: "Kdybych h\xE1dala, \u0159ekla bych, \u017Ee n\xE1m to d\u011Bl\xE1\u0161
-      naschv\xE1l."
+    lineText: "\u017De ty n\xE1m to d\u011Bl\xE1\u0161 naschv\xE1l, pijavice jedna!"
   - speakerName: "Maru\u0161ka"
-    lineText: "Venku je tma a oz\xFDvaj\xED se tam divn\xE9 zvuky, nav\xEDc opravdu
-      je v\u0161echno d\u0159\xEDv\xED mokr\xE9."
+    lineText: "Venku je tma, mati\u010Dko, a oz\xFDvaj\xED se tam divn\xE9 zvuky.
+      A v\u0161echno d\u0159\xEDv\xED mokr\xE9, namoudu\u0161i!!"
   - speakerName: Macecha
     lineText: "Co j\xE1 si s takov\xFDm budi\u017Ekni\u010Demem po\u010Dnu."
   - speakerName: Macecha
@@ -3301,9 +3300,9 @@ MonoBehaviour:
   lanternTip: Press left mouse button, to find reflecting mirrors.
   secondDialogue:
   - speakerName: Holena
-    lineText: AAAAAAAAAAOOOOOAH!!!!!!
+    lineText: "Aaargh\xC1\xC9eghrrRRR!!!!!!"
   - speakerName: Holena
-    lineText: "Kdo m\u011B ksakru bud\xED?!  co to m\xE1 znamenat?!"
+    lineText: "Kdo m\u011B ksakru bud\xED?! co to m\xE1 znamenat?!"
   - speakerName: Macecha
     lineText: "Maruno, ty ni\u010Demo, nedok\xE1\u017Ee\u0161 ud\u011Blat nic po\u0159\xE1dn\u011B! "
   - speakerName: Holena
@@ -3311,10 +3310,10 @@ MonoBehaviour:
   - speakerName: "Maru\u0161ka"
     lineText: "Ale pan\xED m\xE1mo, to vy jste mi to p\u0159ik\xE1zala\u2026"
   - speakerName: Macecha
-    lineText: "Je\u0161t\u011B se vymlouv\xE1\u0161, nevd\u011B\u010Dnice! Vypadne\u0161
-      makat ven!"
+    lineText: "Je\u0161t\u011B se vymlouv\xE1\u0161, nevd\u011B\u010Dnice! VypadnI
+      makat ven! Mar\u0161!"
   - speakerName: "Maru\u0161ka"
-    lineText: "Ale venku je hrozn\xE1 tma a mr\xE1z, a b\u016Fh v\xED, co tam v noci
+    lineText: "Ale venku je hrozn\xE1 tma a mr\xE1z. B\u016Fh v\xED, co tam v noci
       bloud\xED\u2026 n\u011Bco m\u011B sledovalo, kdy\u017E jsem si sv\xEDtila na
       cestu."
   - speakerName: Macecha
@@ -3322,7 +3321,7 @@ MonoBehaviour:
   - speakerName: "Maru\u0161ka"
     lineText: "Dob\xEDr\xE1te si m\u011B?! Fialky? Te\u010F v zim\u011B?!"
   - speakerName: Machecha a Holena
-    lineText: "Bez kytek se nevracej! Bez tebe n\xE1m bude hej!!!"
+    lineText: "Bez kytek se nevracej! Bez tebe n\xE1m bude hej!"
   firstPCPos: {fileID: 368211434}
   firstMotherPos: {fileID: 511761977}
   firstDaughterPos: {fileID: 1354444621}
@@ -4859,20 +4858,20 @@ MonoBehaviour:
   pauseBetweenLines: 20
   firstDialogue:
   - speakerName: "Maru\u0161ka"
-    lineText: "Matko i jablka jsem sehnala... ale ven u\u017E nikdy v noci nevkro\u010D\xEDm."
+    lineText: "Matko, i jablka jsem sehnala... ale ven u\u017E nikdy v noci nevkro\u010D\xEDm."
   - speakerName: Holena
-    lineText: "Kdes jsi je sakra sebrala, \u017Ee tys je n\u011Bkde ukradla?!"
+    lineText: "Kdes je sakra sebrala, \u017Ee tys je n\u011Bkde ukradla?!"
   - speakerName: Macecha
     lineText: "Ukradla? A kdo by m\u011Bl uprost\u0159ed zimy takov\xE1 kr\xE1sn\xE1
       jablka? Kde jsi je na\u0161la?"
   - speakerName: "Maru\u0161ka"
     lineText: "Na\u0161la jsem je kousek od pot\u016F\u010Dku... rostla tam jen tak."
   - speakerName: Holena
-    lineText: "Maminko ta jablka jsou skv\u011Bl\xE1, dala bych si dal\u0161\xED."
+    lineText: "Maminko, ta jablka jsou lahodn\xE1! Dala bych si dal\u0161\xED."
   - speakerName: Macecha
     lineText: "M\xE1\u0161 pravdu, jsou v\xFDborn\xE1... ale venku je hrozn\xE1 zima."
   - speakerName: Holena
-    lineText: "Mami, j\xE1 je chci! A hned!"
+    lineText: "Ale j\xE1 je chci! A hned!"
   - speakerName: Macecha
     lineText: "No dobr\xE1... vezmu n\u016F\u0161i, a\u0165 jich m\xE1me dost na
       cel\xFD t\xFDden."
@@ -6413,25 +6412,24 @@ MonoBehaviour:
   pauseBetweenLines: 20
   firstDialogue:
   - speakerName: "Maru\u0161ka"
-    lineText: "Ach ne... tam venku n\u011Bco je! Matko, cht\u011Blo m\u011B to se\u017Erat!"
+    lineText: "Ach ne... Tam venku n\u011Bco je! Matko, cht\u011Blo m\u011B to se\u017Erat!"
   - speakerName: Macecha
-    lineText: "Nemel blbosti, jen se vymlouv\xE1\u0161, \u017Ee jsi nic nena\u0161la."
+    lineText: "Nesmysl! Jen se vymlouv\xE1\u0161, \u017Ee jsi nic nena\u0161la."
   - speakerName: "Maru\u0161ka"
     lineText: "Jahody jsou tu, na\u0161la jsem je."
   - speakerName: Holena
-    lineText: "JAHODY?! Ach, jak n\xE1dhern\u011B vypadaj\xED\u2026 kde jsi je vzala?\u201C"
+    lineText: "JAHODY?! Ach, jak n\xE1dhern\u011B vypadaj\xED\u2026 kde jsi je vzala?"
   - speakerName: "Maru\u0161ka"
     lineText: "Na\u0161la jsem je nedaleko, kde sn\xEDh ji\u017E za\u010Dal t\xE1t. "
   - speakerName: Macecha
-    lineText: "No dobr\xE1, ty chytr\xE1 slepice, jahody jsou sice fajn..."
+    lineText: "No dobr\xE1, ty vychytral\xE1 slepice, jahody jsou sice fajn..."
   - speakerName: Macecha
-    lineText: "...ale to, co by skute\u010Dn\u011B bodlo, jsou n\u011Bjak\xE1 \u010Derstv\xE1
-      jabl\xED\u010Dka."
+    lineText: "...ale bez jablek to nen\xED ono. P\u0159ines n\xE1m n\u011Bjak\xE1
+      \u010Derstv\xE1 jabl\xED\u010Dka. A ho\u010F s sebou."
   - speakerName: "Maru\u0161ka"
-    lineText: "Matko co to \u0159\xEDk\xE1te?! V\u017Edyt jsem \u0159\xEDkala \u017Ee
-      venku nen\xED bezpe\u010Dno."
+    lineText: "Matko, co to \u0159\xEDk\xE1te?! V\u017Edy\u0165 jsem sotva p\u0159e\u017Eila!"
   - speakerName: "Maru\u0161ka"
-    lineText: "Jablka v takov\xE9 zim\u011B nikdy nese\u017Eenu."
+    lineText: "A jablka v takov\xE9 zim\u011B nikdy nese\u017Eenu."
   - speakerName: Macecha a Holena
     lineText: "Bez jablek se nevracej! Bez tebe n\xE1m bude hej!"
   firstCameraSpot: {fileID: 333224786}
