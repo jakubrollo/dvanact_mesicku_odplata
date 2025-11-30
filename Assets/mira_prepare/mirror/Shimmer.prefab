@@ -235,8 +235,8 @@ MonoBehaviour:
   maxAlpha: 0.8
   glareFocus: 20
   shimmerSpeed: 3
-  fadeInSpeed: 0.01
+  fadeInSpeed: 0.07
   fadeOutSpeed: 4
   pointLight: {fileID: 5702578298176163888}
-  maxLightIntensity: 3
+  maxLightIntensity: 3.1
   playerCandle: {fileID: 0}

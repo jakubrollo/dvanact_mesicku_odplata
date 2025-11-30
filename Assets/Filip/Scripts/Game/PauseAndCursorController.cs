@@ -7,17 +7,31 @@ public class PauseAndCursorController : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
 
     [Header("Input")]
-    [SerializeField] private InputActionReference pauseActionReference; // odkaz na tlaèítko ESC / Pause
+    [SerializeField] private InputActionReference pauseActionReference;
 
-    private InputAction pauseAction; // uložíme si akci lokálnì
+    private InputAction pauseAction;
+    private PlayerInput playerInput; // Cache this reference
+
+    private void Awake()
+    {
+        // Cache the PlayerInput component so we don't use GetComponent every time we pause
+        playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void Start()
+    {
+        // IMPORTANT: Ensure the menu is hidden and cursor is locked when the game starts
+        if (pauseMenu != null) pauseMenu.SetActive(false);
+        SetPauseState(false);
+    }
 
     private void OnEnable()
     {
         if (pauseActionReference != null)
         {
-            pauseAction = pauseActionReference.action; // uložíme akci
-            pauseAction.Enable();                    // povolíme
-            pauseAction.performed += OnPausePerformed; // pøipojíme listener
+            pauseAction = pauseActionReference.action;
+            pauseAction.Enable();
+            pauseAction.performed += OnPausePerformed;
         }
     }
 
@@ -25,33 +39,54 @@ public class PauseAndCursorController : MonoBehaviour
     {
         if (pauseAction != null)
         {
-            pauseAction.performed -= OnPausePerformed; // odpojíme listener
-            pauseAction.Disable();                      // zakážeme akci
+            pauseAction.performed -= OnPausePerformed;
+            pauseAction.Disable();
         }
     }
 
     private void OnPausePerformed(InputAction.CallbackContext ctx)
     {
-        TogglePause();
+        // Toggle the state based on the current state of the menu
+        bool isCurrentlyPaused = pauseMenu.activeSelf;
+        SetPauseState(!isCurrentlyPaused);
     }
 
-    public void TogglePause()
+    public void SetPauseState(bool isPaused)
     {
-        bool active = !pauseMenu.activeSelf;
-        pauseMenu.SetActive(active);
+        // 1. Handle UI
+        if (pauseMenu != null) pauseMenu.SetActive(isPaused);
 
-        var playerInput = GetComponent<PlayerInput>();
+        // 2. Handle Input Action Map (Switching between Gameplay and UI)
         if (playerInput != null)
         {
-            var playerMap = playerInput.actions.FindActionMap("Player");
-            if (active)
-                playerMap.Disable();
+            if (isPaused)
+            {
+                // Option A: Disable player controls
+                // playerInput.actions.FindActionMap("Player")?.Disable(); 
+
+                // Option B (Better): Switch to a UI map if you have one
+                playerInput.SwitchCurrentActionMap("UI");
+            }
             else
-                playerMap.Enable();
+            {
+                // playerInput.actions.FindActionMap("Player")?.Enable();
+                playerInput.SwitchCurrentActionMap("Player");
+            }
         }
 
-        Time.timeScale = active ? 0f : 1f;
-        Cursor.lockState = active ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = active;
+        // 3. Handle Time
+        Time.timeScale = isPaused ? 0f : 1f;
+
+        // 4. Handle Cursor (The part you asked about)
+        if (isPaused)
+        {
+            Cursor.lockState = CursorLockMode.None; // Unlocks cursor so you can click buttons
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked; // Locks cursor to center
+            Cursor.visible = false; // Hides cursor
+        }
     }
 }
