@@ -2671,6 +2671,7 @@ MonoBehaviour:
   firstPCPos: {fileID: 368211434}
   firstMotherPos: {fileID: 511761977}
   firstDaughterPos: {fileID: 1354444621}
+  secondDaughterPos: {fileID: 0}
   secondMotherPos: {fileID: 2120397980}
   motherSprite: {fileID: 21300000, guid: 0750ba7cdbd1b934caaf6d2a497390c3, type: 3}
   angryMother: {fileID: 21300000, guid: f6dabfa20da447747a0f641eaa031d6b, type: 3}
@@ -3243,6 +3244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 1637637619}
   enemy: {fileID: 0}
+  curAmbientAudioSource: {fileID: 62940425}
+  curMusicAudioSource: {fileID: 1212383064}
   playerSpawnPoints:
   - {fileID: 1637637620}
   enemySpawnPoints:
