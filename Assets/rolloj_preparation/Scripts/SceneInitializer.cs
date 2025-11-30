@@ -6,6 +6,8 @@ public class SceneInitializer : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy; // Can be null (e.g. inside Cabin)
+    [SerializeField] private AudioSource curAmbientAudioSource;
+    [SerializeField] private AudioSource curMusicAudioSource;
 
     [Header("Configuration Lists")]
     [Tooltip("List of all possible places the Player can start")]
@@ -24,6 +26,13 @@ public class SceneInitializer : MonoBehaviour
         {
             var data = GameProgressionManager.Instance.GetCurrentLevelData();
             SetupScene(data);
+            AmbientClipsManager ambientManager =GameProgressionManager.Instance.GetComponentInChildren<AmbientClipsManager>();
+            if(ambientManager != null)
+            {
+                ambientManager.AmbientAudioSource = curAmbientAudioSource;
+                ambientManager.MusicAudioSource = curMusicAudioSource;
+            }
+
         }
         else
         {

@@ -27,8 +27,10 @@ public class IntoOutroCutsceneManager : MonoBehaviour
     [SerializeField] private List<DialogueLine> firstDialogue = new List<DialogueLine>();
     [SerializeField] private List<DialogueLine> secondDialogue = new List<DialogueLine>();
 
+    [SerializeField] private int scream_index = 4;
 
     public UnityEvent OnCutsceneStart;
+    public UnityEvent OnScreamInvoke;
     public UnityEvent OnCutsceneFinished;
 
     [SerializeField] private Stage stage = Stage.First;
@@ -66,6 +68,10 @@ public class IntoOutroCutsceneManager : MonoBehaviour
         for (int i = 0; i < lines.Count; i++)
         {
             MakeCharacterTalk(lines[i]);
+            if (i == scream_index && stage == Stage.Second)
+            {
+                OnScreamInvoke?.Invoke();
+            }
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }

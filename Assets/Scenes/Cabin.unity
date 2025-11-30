@@ -629,7 +629,6 @@ MonoBehaviour:
   skipButton: {fileID: 2121202755351712842, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
   player: {fileID: 330067703}
   textController: {fileID: 822074980}
-  stage: 0
   firstStageManager: {fileID: 1089105670}
   secondStageManager: {fileID: 289094208}
   thirdStageManager: {fileID: 2005898123}
@@ -936,6 +935,11 @@ Transform:
   - {fileID: 1156814233}
   m_Father: {fileID: 435954929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &309014225 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2298125388316417996, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+  m_PrefabInstance: {fileID: 7970288296100578067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330067703 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3382490633774978945, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
@@ -1477,6 +1481,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 0
+    CabinStage: 0
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1486,6 +1491,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 0
+    CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1495,6 +1501,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 0
+    CabinStage: 0
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1504,6 +1511,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 1
+    CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1513,6 +1521,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 1
+    CabinStage: 0
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1522,6 +1531,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 2
+    CabinStage: 0
     hasEnemy: 1
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -1531,6 +1541,7 @@ MonoBehaviour:
     spawnPointIndex: 0
     activeEventIndex: 0
     ForestStage: 2
+    CabinStage: 0
     hasEnemy: 0
     enemySpawnPointIndex: 0
     chaseSpeed: 11
@@ -3759,8 +3770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TMPro.Examples.SimpleScript
   DISABLE_AMBIENTS: 0
-  AmbientAudioSource: {fileID: 0}
-  MusicAudioSource: {fileID: 0}
+  AmbientAudioSource: {fileID: 1762388915}
+  MusicAudioSource: {fileID: 309014225}
   ProgressionManager: {fileID: 453321113}
   HutCampfire: {fileID: 8300000, guid: 4edd488e15499504198042f8c6afaead, type: 3}
   Snoring: {fileID: 8300000, guid: cf87d73c2185f604d98c7e044e274a51, type: 3}
@@ -3935,6 +3946,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 0}
   enemy: {fileID: 0}
+  curAmbientAudioSource: {fileID: 1762388915}
+  curMusicAudioSource: {fileID: 309014225}
   playerSpawnPoints:
   - {fileID: 0}
   enemySpawnPoints:
@@ -5244,6 +5257,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6408612430985893478, guid: 11bcb01c34183fb4dbfdc6e63328b38f, type: 3}
   m_PrefabInstance: {fileID: 499314794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1762388915 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6402465886991867188, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+  m_PrefabInstance: {fileID: 7970288296100578067}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1763336402 stripped
 Transform:
