@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   pauseBetweenLines: 10
-  skipButton: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  skipButton: {fileID: 2701944305936014713, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
   textController: {fileID: 0}
   rotatingCamera: {fileID: 5235208279261908804}
   firstDialogue:

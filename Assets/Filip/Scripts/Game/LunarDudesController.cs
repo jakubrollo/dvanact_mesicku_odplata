@@ -74,9 +74,9 @@ public class LunarDudesController : MonoBehaviour
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
-        rotatingCamera.Priority = 0;
+      //  rotatingCamera.Priority = 0;
 
-        yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
+       // yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         textController.FadeOutText();
         //next scene
         OnLunarCutsceneFinished?.Invoke();
