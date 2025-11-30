@@ -44,6 +44,10 @@ public class ThirdStageManager : MonoBehaviour
         this.characterDaugther = daughter;
         this.dialogueVirtualCamera = dialogueCamera;
         this.skipButton.action.Enable();
+
+        daughter.GetComponent<Billboard>().StartAnimation();
+        mother.GetComponent<Billboard>().StartAnimation();
+
         StartCoroutine(RunDialogueCoroutine());
     }
 
@@ -79,10 +83,10 @@ public class ThirdStageManager : MonoBehaviour
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
-        dialogueVirtualCamera.Priority = 0;
-        firstPersonController.canMove = true;
+    //    dialogueVirtualCamera.Priority = 0;
+   //     firstPersonController.canMove = true;
 
-        yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
+      //  yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         dialogueTextController.FadeOutText();
         //next scene
         OnStageFinished?.Invoke();

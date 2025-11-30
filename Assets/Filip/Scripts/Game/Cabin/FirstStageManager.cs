@@ -38,7 +38,18 @@ public class FirstStageManager : MonoBehaviour
     [SerializeField] private Transform firstDaughterPos;
 
     [SerializeField] private Transform secondMotherPos;
+
+    [SerializeField] private Sprite motherSprite;
+    //[SerializeField] private Sprite motherTalking;
+    [SerializeField] private Sprite angryMother;
+
+    [SerializeField] private Sprite daughterSleep;
+    [SerializeField] private Sprite daughterSprite;
+  //  [SerializeField] private Sprite daughterTalking;
     //   [SerializeField] private Transform secondDaughterPos;
+
+    private Billboard daughterBillboard;
+    private Billboard motherBillboard;
 
     public UnityEvent OnStageFinished;
 
@@ -54,6 +65,13 @@ public class FirstStageManager : MonoBehaviour
         this.characterDaugther = daughter;
         this.dialogueVirtualCamera = dialogueCamera;
         this.skipButton.action.Enable();
+
+
+        daughterBillboard = daughter.GetComponent<Billboard>();
+        motherBillboard = mother.GetComponent<Billboard>();
+        daughterBillboard.SetSprite(daughterSleep);
+      //  motherBillboard.SetSprite(motherSprite);
+        motherBillboard.StartAnimation();
 
         StartCoroutine(RunDialogueCoroutine());
     }
@@ -89,12 +107,18 @@ public class FirstStageManager : MonoBehaviour
 
 
         dialogueTextController.FadeOutText();
+
+        motherBillboard.StopAnimation();
+
         dialogueTextController.ShowTip(lanternTip);
 
 
 
         yield return StartCoroutine(WaitForPlayerFindMirror());
+        
         dialogueTextController.FadeInText();
+
+        motherBillboard.SetSprite(angryMother);
 
         dialogueVirtualCamera.transform.position = secondCameraSpot.position;
         dialogueVirtualCamera.Priority = 300;
@@ -109,6 +133,7 @@ public class FirstStageManager : MonoBehaviour
 
             if (secondDialogue[i].speakerName == "Macecha")
             {
+                daughterBillboard.StartAnimation();
                 characterMother.transform.position = secondMotherPos.position;
                 dialogueVirtualCamera.LookAt = characterMother.transform;
             }
@@ -118,9 +143,11 @@ public class FirstStageManager : MonoBehaviour
             }
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
-        dialogueVirtualCamera.Priority = 0;
+      //  dialogueVirtualCamera.Priority = 0;
 
-        yield return StartCoroutine (WaitForTimeOrSkip(pauseBetweenLines));
+        
+
+      //  yield return StartCoroutine (WaitForTimeOrSkip(pauseBetweenLines));
         dialogueTextController.FadeOutText();
         //next scene
         OnStageFinished?.Invoke();

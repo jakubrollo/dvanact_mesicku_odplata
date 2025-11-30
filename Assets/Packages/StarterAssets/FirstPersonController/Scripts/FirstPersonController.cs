@@ -51,8 +51,9 @@ namespace StarterAssets
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
-		// cinemachine
-		private float _cinemachineTargetPitch;
+        
+        // cinemachine
+        private float _cinemachineTargetPitch;
 
 		// player
 		private float _speed;
@@ -88,7 +89,9 @@ namespace StarterAssets
 			}
 		}
 
-		private void Awake()
+
+
+        private void Awake()
 		{
 			// get a reference to our main camera
 			if (_mainCamera == null)
@@ -114,7 +117,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
+            JumpAndGravity();
 			GroundedCheck();
 			Move();
 		}
