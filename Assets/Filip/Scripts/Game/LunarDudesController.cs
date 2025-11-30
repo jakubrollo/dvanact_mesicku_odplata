@@ -1,5 +1,4 @@
 using Cinemachine;
-using NUnit.Framework;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,47 +6,45 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-
 public enum LunarDudesStage
 {
     First,
     Second,
     Third
 }
+
 public class LunarDudesController : MonoBehaviour
 {
     [SerializeField] private float pauseBetweenLines = 3f;
     [SerializeField] private InputActionReference skipButton;
 
     [SerializeField] private DialogueTextController textController;
-
-    //   [SerializeField] private CinemachineVirtualCamera camera;
     [SerializeField] private CinemachineVirtualCamera rotatingCamera;
 
     [SerializeField] private List<DialogueLine> firstDialogue = new List<DialogueLine>();
     [SerializeField] private List<DialogueLine> secondDialogue = new List<DialogueLine>();
     [SerializeField] private List<DialogueLine> thirdDialogue = new List<DialogueLine>();
-
+    [SerializeField] private HorrorEnemyAI enemy;
 
     public UnityEvent OnLunarCutsceneStart;
     public UnityEvent OnLunarCutsceneFinished;
 
-
-
-    [SerializeField] LunarDudesStage stage  = LunarDudesStage.First;
+    [SerializeField] LunarDudesStage stage = LunarDudesStage.First;
+    [SerializeField] private GameObject player;
 
     public void Start()
     {
-        //ActivateLunarDudesCutscene(stage);
+        // Uncomment this if you want it to start automatically, 
+        // otherwise call ActivateLunarDudesCutscene from a Trigger
+        // ActivateLunarDudesCutscene(stage);
     }
-
 
     public void ActivateLunarDudesCutscene(LunarDudesStage stage)
     {
         OnLunarCutsceneStart?.Invoke();
+
         if (stage == LunarDudesStage.First)
         {
-
             StartCoroutine(RunDialogueCoroutine(firstDialogue));
         }
         else if (stage == LunarDudesStage.Second)
@@ -58,40 +55,64 @@ public class LunarDudesController : MonoBehaviour
         {
             StartCoroutine(RunDialogueCoroutine(thirdDialogue));
         }
-
     }
 
     private IEnumerator RunDialogueCoroutine(List<DialogueLine> lines)
     {
-        //turn off player
-        
-
-        textController.FadeInText();
-        //Initial dialogue 
-        rotatingCamera.Priority = 300;
-
-        for (int i = 0; i < firstDialogue.Count; i++)
+        if(enemy != null)
+            enemy.TriggerFlee();
+        if (player != null)
         {
-            MakeCharacterTalk(firstDialogue[i]);
+            var cc = player.GetComponent<UnityEngine.CharacterController>();
+            if (cc) cc.enabled = false;
+            var moveScript = player.GetComponent<FirstPersonController>();
+            if (moveScript) moveScript.enabled = false;
+            var candleScript = player.GetComponentInChildren<CandleBehavior>();
+            if (candleScript != null)
+            {
+                candleScript.gameObject.SetActive(false);
+            }
+        }
+        // 1. Setup
+        if (textController != null) textController.FadeInText();
+        if (rotatingCamera != null) rotatingCamera.Priority = 300;
+
+        // 2. Play Lines
+        // BUG FIX: Changed 'firstDialogue' to 'lines' so it works for stage 2 and 3
+        for (int i = 0; i < lines.Count; i++)
+        {
+            MakeCharacterTalk(lines[i]);
 
             yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
         }
 
-        //rotatingCamera.Priority = 0;
+        // 3. Cleanup
+        if (textController != null) textController.FadeOutText();
 
-        //yield return StartCoroutine(WaitForTimeOrSkip(pauseBetweenLines));
-        textController.FadeOutText();
-        //next scene
+        Debug.Log("Cutscene Finished. Triggering Next Level...");
+
+        // 4. Fire Events
         OnLunarCutsceneFinished?.Invoke();
-        Debug.Log("next scene");
+
+        // 5. --- CALL THE MANAGER HERE ---
+        // This works because 'Instance' is static and lives in DontDestroyOnLoad
+        if (GameProgressionManager.Instance != null)
+        {
+            GameProgressionManager.Instance.LoadNextLevel();
+        }
+        else
+        {
+            Debug.LogError("No GameProgressionManager found! Did you start from the Menu?");
+        }
     }
 
     private IEnumerator WaitForTimeOrSkip(float time)
     {
         float timer = 0f;
 
-        while (skipButton.action.IsPressed())
-            yield return null;
+        // Wait if button is held down initially (prevent accidental skips)
+        if (skipButton != null)
+            while (skipButton.action.IsPressed()) yield return null;
 
         while (timer < time)
         {
@@ -108,9 +129,7 @@ public class LunarDudesController : MonoBehaviour
 
     private void MakeCharacterTalk(DialogueLine line)
     {
-        //  if (character == null) return; make sure it doesnt call animation on player character
-
-        textController.UpdateTextInBox(line.lineText, line.speakerName);
-
+        if (textController != null)
+            textController.UpdateTextInBox(line.lineText, line.speakerName);
     }
 }
