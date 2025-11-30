@@ -790,7 +790,7 @@
         "preventRotation": false
     },
     "m_Path": "Shader Graphs",
-    "m_GraphPrecision": 1,
+    "m_GraphPrecision": 2,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -980,8 +980,8 @@
     "m_ObjectId": "0ab3233408db4256b53cca931748fedf",
     "m_Title": "Dithering",
     "m_Position": {
-        "x": -2281.0,
-        "y": -361.0
+        "x": -2281.60009765625,
+        "y": -362.4000244140625
     }
 }
 
@@ -2053,8 +2053,8 @@
     "m_ObjectId": "4c7c19d62ab64f0c9d1caf98d1b94e09",
     "m_Title": "Quantization",
     "m_Position": {
-        "x": 699.0,
-        "y": -30.0
+        "x": 698.4000244140625,
+        "y": -32.00006103515625
     }
 }
 
@@ -2791,8 +2791,8 @@
     "m_ObjectId": "74e900202cf8400b9662f60d000f8e45",
     "m_Title": "Adding Dither to Render",
     "m_Position": {
-        "x": -622.0,
-        "y": -14.0
+        "x": -622.3999633789063,
+        "y": -16.00006103515625
     }
 }
 
