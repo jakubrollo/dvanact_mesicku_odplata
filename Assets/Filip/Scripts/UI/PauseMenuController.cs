@@ -1,16 +1,18 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseMenuController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    public void MainMenu()
     {
-        
+        ScreenFader.Instance.FadeAndLoadScene("MainMenu");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (EventSystem.current.IsPointerOverGameObject())
+            Debug.Log("Pointer over UI!");
     }
+
 }

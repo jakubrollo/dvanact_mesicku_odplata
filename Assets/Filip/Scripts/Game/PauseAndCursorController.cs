@@ -35,7 +35,7 @@ public class PauseAndCursorController : MonoBehaviour
         TogglePause();
     }
 
-    private void TogglePause()
+    public void TogglePause()
     {
         bool active = !pauseMenu.activeSelf;
         pauseMenu.SetActive(active);
