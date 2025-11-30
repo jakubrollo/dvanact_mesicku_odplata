@@ -376,7 +376,7 @@ MonoBehaviour:
   skipButton: {fileID: 2121202755351712842, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
   player: {fileID: 1637637619}
   textController: {fileID: 822074980}
-  stage: 1
+  stage: 0
   firstStageManager: {fileID: 1089105670}
   secondStageManager: {fileID: 289094208}
   thirdStageManager: {fileID: 2005898123}
@@ -3499,7 +3499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1425874302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5305,10 +5305,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Whole Player Object Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2692177732356783923, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_fontSize
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692177732356783923, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692177732356783923, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8554644071300555835, guid: 9cc7b1f9aa490ee42897814645f5131d, type: 2}
+    - target: {fileID: 2692177732356783923, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3382490633774978957, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 495510304}
+    - target: {fileID: 3447980638381711022, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3703913463857985211, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
       propertyPath: m_LocalPosition.x
       value: 238.3016
@@ -5348,6 +5368,26 @@ PrefabInstance:
     - target: {fileID: 3703913463857985211, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630076167913455925, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083142556959312371, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1526.7776
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083142556959312371, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 127.8094
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083142556959312371, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000051618
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083142556959312371, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -350
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
