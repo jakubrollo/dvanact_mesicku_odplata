@@ -18,6 +18,8 @@ public class GameProgressionManager : MonoBehaviour
         [Tooltip("Which exit/trigger/cutscene to activate in the scene")]
         public int activeEventIndex;
 
+        public LunarDudesStage ForestStage;
+
         [Header("Enemy Configuration")]
         public bool hasEnemy;
         public int enemySpawnPointIndex; // Which spawn point for the enemy

@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 5423927634428560869, guid: 7e3cf1d049e88df4e89583fcda37131b, type: 3}
       propertyPath: m_Actions
       value: 
-      objectReference: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+      objectReference: {fileID: -944628639613478452, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
     - target: {fileID: 7276841219208630476, guid: 7e3cf1d049e88df4e89583fcda37131b, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -547,6 +547,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1818504025338808472, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
+      propertyPath: m_PathPosition
+      value: 3.784231
+      objectReference: {fileID: 0}
     - target: {fileID: 3752581151845666801, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 235.97935
@@ -587,6 +591,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6875719813415869661, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
+      propertyPath: skipButton
+      value: 
+      objectReference: {fileID: 2121202755351712842, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
     - target: {fileID: 6875719813415869661, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
       propertyPath: textController
       value: 

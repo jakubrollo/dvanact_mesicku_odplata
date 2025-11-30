@@ -128,6 +128,7 @@ public class CandleBehavior : MonoBehaviour
         }
     }
 
+
     private void OnDisable()
     {
         if (inputActions != null)
@@ -139,6 +140,7 @@ public class CandleBehavior : MonoBehaviour
 
     private void OnToggleCandle(InputAction.CallbackContext context)
     {
+        if (Time.timeScale == 0f) return;
         Debug.Log("CandleToggled!");
         ToggleCandle();
     }
