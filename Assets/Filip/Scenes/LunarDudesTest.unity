@@ -539,6 +539,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5976602719481992437
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 220027353782749678, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: textController
+      value: 
+      objectReference: {fileID: 400234355}
+    - target: {fileID: 2742901562078215935, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_Name
+      value: MaruskaMonolgueManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 632.6468
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 242.37915
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568017975734266081, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 80c6cf03d4021374da0f85fbaeb96bf4, type: 3}
 --- !u!1001 &7406909285194775053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -549,7 +610,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1818504025338808472, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
       propertyPath: m_PathPosition
-      value: 3.784231
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3752581151845666801, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -603,6 +664,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LunarDudes
       objectReference: {fileID: 0}
+    - target: {fileID: 8406882851893322785, guid: 0bbba811b72e27540b8e75724f99f9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -616,3 +681,4 @@ SceneRoots:
   - {fileID: 7406909285194775053}
   - {fileID: 1067174295}
   - {fileID: 282696099}
+  - {fileID: 5976602719481992437}
