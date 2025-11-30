@@ -3543,6 +3543,11 @@ PrefabInstance:
       addedObject: {fileID: 205942035}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8856986e3c59f0643a6fa72c83b6a3a9, type: 3}
+--- !u!82 &1195239038 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 30692074690035442, guid: 3175b42900c0e3448b49f923b3ca6662, type: 3}
+  m_PrefabInstance: {fileID: 7970288296100578067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1196666484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 807699376582836993, guid: 889ff6fc22f61dd41b5d2c631ab524f0, type: 3}
@@ -3772,18 +3777,18 @@ MonoBehaviour:
   DISABLE_AMBIENTS: 0
   AmbientAudioSource: {fileID: 1762388915}
   MusicAudioSource: {fileID: 309014225}
-  WalkingAudioSource: {fileID: 0}
+  WalkingAudioSource: {fileID: 1195239038}
   ProgressionManager: {fileID: 453321113}
   HutCampfire: {fileID: 8300000, guid: 4edd488e15499504198042f8c6afaead, type: 3}
   Snoring: {fileID: 8300000, guid: cf87d73c2185f604d98c7e044e274a51, type: 3}
   HutMusic: {fileID: 8300000, guid: b6780fc319f9d384580d8bfe17b327fd, type: 3}
   DoorSound: {fileID: 8300000, guid: 4c0c04ecd38a22a4293d48867327afa0, type: 3}
-  StepsHut: {fileID: 0}
+  StepsHut: {fileID: 8300000, guid: cdf4b27904147f445b0f16fd547fe25a, type: 3}
   ForestAmbianceMusic: {fileID: 8300000, guid: 7bea25073f9994c468fe2be214e8b66a, type: 3}
   ForestAmbianceNature: {fileID: 8300000, guid: ee4d281bd2dfbe34c97fd414125fb333, type: 3}
   ChirpingSound: {fileID: 8300000, guid: 27f4496bb4c7f794cbca18773e9ca535, type: 3}
   GhostSound: {fileID: 8300000, guid: caebed8065a88e847b300febfdd62a2b, type: 3}
-  StepsForest: {fileID: 0}
+  StepsForest: {fileID: 8300000, guid: b4c7c92c4f9f5694d8076406784bf185, type: 3}
 --- !u!4 &1251700395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6408612430985893478, guid: 11bcb01c34183fb4dbfdc6e63328b38f, type: 3}
@@ -3949,8 +3954,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 0}
   enemy: {fileID: 0}
-  curAmbientAudioSource: {fileID: 0}
-  curMusicAudioSource: {fileID: 0}
+  curAmbientAudioSource: {fileID: 1762388915}
+  curMusicAudioSource: {fileID: 309014225}
+  curWalkAudioSource: {fileID: 1195239038}
   playerSpawnPoints:
   - {fileID: 0}
   enemySpawnPoints:

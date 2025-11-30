@@ -8,6 +8,7 @@ public class SceneInitializer : MonoBehaviour
     [SerializeField] private GameObject enemy; // Can be null (e.g. inside Cabin)
     [SerializeField] private AudioSource curAmbientAudioSource;
     [SerializeField] private AudioSource curMusicAudioSource;
+    [SerializeField] private AudioSource curWalkAudioSource;
 
     [Header("Configuration Lists")]
     [Tooltip("List of all possible places the Player can start")]
@@ -40,6 +41,7 @@ public class SceneInitializer : MonoBehaviour
             {
                 ambientManager.AmbientAudioSource = curAmbientAudioSource;
                 ambientManager.MusicAudioSource = curMusicAudioSource;
+                ambientManager.WalkingAudioSource = curWalkAudioSource;
             }
 
         }

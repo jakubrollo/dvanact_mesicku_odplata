@@ -32,10 +32,10 @@ Material:
     - _AspectRatio: 1.3817563
     - _FlickerSpeed: 8
     - _FlickerStrength: 0.1
-    - _Radius: 0.2
+    - _Radius: 0.15808943
     - _Smoothness: 0.1
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0.9}
-    - _Position: {r: 0.49590766, g: 0.47468898, b: 0, a: 0}
+    - _Position: {r: 0.54642516, g: 0.4734529, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
