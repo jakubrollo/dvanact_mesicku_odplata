@@ -49,8 +49,10 @@ public class AmbientClipsManager : MonoBehaviour
         if (sceneName == scene) 
             return;
         print("RunAmbientMusicBasedOnScene");
-
+        // Scene changed
         scene = sceneName;
+        
+
         if (AmbientAudioSource.isPlaying)
         {
             AmbientAudioSource.Stop();
@@ -66,18 +68,26 @@ public class AmbientClipsManager : MonoBehaviour
         switch (sceneName)
         {
             case "Forest":
+                CloseDoorSound();
                 AmbientAudioSource.clip = ForestAmbianceNature;
                 AmbientAudioSource.Play();
                 MusicAudioSource.clip = ForestAmbianceMusic;
                 MusicAudioSource.Play();
                 break;
             case "Cabin":
+                CloseDoorSound();
                 AmbientAudioSource.clip = HutCampfire;
                 AmbientAudioSource.Play();
                 MusicAudioSource.clip = HutMusic;
                 MusicAudioSource.Play();
                 break;
-            default: break;
+            default:
+                CloseDoorSound();
+                AmbientAudioSource.clip = ForestAmbianceNature;
+                AmbientAudioSource.Play();
+                MusicAudioSource.clip = ForestAmbianceMusic;
+                MusicAudioSource.Play();
+                break;
         }
     }
 

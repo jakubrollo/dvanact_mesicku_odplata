@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 // We access Unity's SceneManager explicitly to avoid naming conflicts
 
@@ -34,7 +35,7 @@ public class GameProgressionManager : MonoBehaviour
 
     private int currentStepIndex = 0;
 
-    public AmbientClipsManager Ambients;
+    //public AmbientClipsManager Ambients;
 
     void Awake()
     {
@@ -51,6 +52,12 @@ public class GameProgressionManager : MonoBehaviour
 
     public string CurrentSceneName()
     {
+        if (progressionSteps.Count() >= currentStepIndex)
+        {
+            //print("progressionSteps index out of range!");
+            return "Forest";
+        }
+        //print("Current scene is '" + progressionSteps[currentStepIndex].sceneName + "'!");
         return progressionSteps[currentStepIndex].sceneName;
     }
 
@@ -61,7 +68,8 @@ public class GameProgressionManager : MonoBehaviour
     }
     public void ReloadCurrentLevel()
     {
-        Ambients.CloseDoorSound();
+        //Ambients.CloseDoorSound();
+
         // 1. Get current level data so we know the scene name
         LevelData step = progressionSteps[currentStepIndex];
 
@@ -79,8 +87,8 @@ public class GameProgressionManager : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene(step.sceneName);
         }
 
-        print("Entering Ambients runner");
-        Ambients.RunAmbientMusicBasedOnScene(progressionSteps[currentStepIndex].sceneName);
+        //print("Entering Ambients runner");
+        //Ambients.RunAmbientMusicBasedOnScene(progressionSteps[currentStepIndex].sceneName);
     }
 
     public void LoadNextLevel()
@@ -100,7 +108,7 @@ public class GameProgressionManager : MonoBehaviour
 
     private void LoadCurrentStep()
     {
-        Ambients.CloseDoorSound();
+        //Ambients.CloseDoorSound();
 
         LevelData step = progressionSteps[currentStepIndex];
         if (ScreenFader.Instance != null)
@@ -109,15 +117,16 @@ public class GameProgressionManager : MonoBehaviour
             // This triggers the visual Fade Out -> Load
             ScreenFader.Instance.FadeAndLoadScene(step.sceneName);
             // run ambient loop sounds
-            Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
+            //Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
         }
         else
         {
             print("No ScreenFader found. Reloading current level directly: " + step.sceneName);
             // Fallback if Fader is missing
             UnityEngine.SceneManagement.SceneManager.LoadScene(step.sceneName);
-	    // run ambient loop sounds
-       	    Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
+
+	        // run ambient loop sounds
+       	    //Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
         }
     }
 
