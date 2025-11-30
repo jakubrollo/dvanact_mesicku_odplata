@@ -32,7 +32,8 @@ public class SceneInitializer : MonoBehaviour
 
             if (data.ForestStage == LunarDudesStage.First)
             {
-                pcMonolog.ActivatePCMonologue(true);
+                if(pcMonolog != null)
+                    pcMonolog.ActivatePCMonologue(true);
             }
 
             SetupScene(data);

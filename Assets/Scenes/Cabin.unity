@@ -887,8 +887,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -3335,8 +3335,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -4893,8 +4893,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -6447,8 +6447,8 @@ MonoBehaviour:
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 453321113}
-        m_TargetAssemblyTypeName: GameProgressionManager, Assembly-CSharp
+      - m_Target: {fileID: 1294144381}
+        m_TargetAssemblyTypeName: SceneInitializer, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
