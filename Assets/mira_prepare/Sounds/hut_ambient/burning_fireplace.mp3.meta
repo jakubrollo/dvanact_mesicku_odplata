@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 4edd488e15499504198042f8c6afaead
+=======
 guid: e5edda2d9c0f667458637aef663b9ec0
+>>>>>>> Mira1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8

@@ -20,6 +20,8 @@ public class CandleBehavior : MonoBehaviour
     public float flame_scale_duration = 0.5f; // How long the flame scale animation takes
     public Light[] flame_lights; // The spotlights simulating the flame
 
+    public CandleAudio audio_script;
+
     // Material Properties (still using runtimeMaterialInstance logic from previous turn)
     public float emission_intensity_on = 1f; // Emission intensity when on
     public float emission_intensity_off = 0f; // Emission intensity when off
@@ -50,6 +52,7 @@ public class CandleBehavior : MonoBehaviour
 
     private void Awake()
     {
+        audio_script = GetComponent<CandleAudio>();
         inputActions = new InputSystem_Actions();
 
         // --- 1. Position Setup (Use LOCAL SPACE) ---
@@ -147,10 +150,12 @@ public class CandleBehavior : MonoBehaviour
         candle_turned_on = !candle_turned_on;
         if (candle_turned_on)
         {
+            audio_script.TurnOn();
             ActivateLight();
         }
         else
         {
+            audio_script.TurnOff();
             DeactivateLight();
         }
     }
