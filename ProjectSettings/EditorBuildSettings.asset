@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/rolloj_preparation/Scenes/StoryboardIntro.unity
     guid: 6a162b796b0b3284aa1c940677314143
   - enabled: 1
-    path: Assets/Filip/Scenes/Cabin.unity
-    guid: 1a9679194ef246d4ebee69dea8935f67
+    path: Assets/Scenes/Cabin.unity
+    guid: a63247bb6e4b40449a8981bf374920e1
   - enabled: 1
     path: Assets/Scenes/Forest.unity
     guid: 95a4f9ec00d9e744cbd791ca99ef50b3

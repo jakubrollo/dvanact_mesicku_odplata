@@ -36,6 +36,7 @@ public class FirstStageManager : MonoBehaviour
     [SerializeField] private Transform firstPCPos;
     [SerializeField] private Transform firstMotherPos;
     [SerializeField] private Transform firstDaughterPos;
+    [SerializeField] private Transform secondDaughterPos;
 
     [SerializeField] private Transform secondMotherPos;
 
@@ -134,6 +135,7 @@ public class FirstStageManager : MonoBehaviour
             if (secondDialogue[i].speakerName == "Macecha")
             {
                 daughterBillboard.StartAnimation();
+                characterDaugther.transform.position = secondDaughterPos.position;
                 characterMother.transform.position = secondMotherPos.position;
                 dialogueVirtualCamera.LookAt = characterMother.transform;
             }

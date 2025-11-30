@@ -1434,7 +1434,6 @@ MonoBehaviour:
     chaseSpeed: 11
     noticeBuildUpTime: 20
     maxDetectionRadius: 100
-  Ambients: {fileID: 0}
 --- !u!4 &453321114
 Transform:
   m_ObjectHideFlags: 0
@@ -2115,7 +2114,7 @@ SpriteRenderer:
   m_Size: {x: 6.4, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &576829082
@@ -2132,9 +2131,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Billboard
   player: {fileID: 862872259}
   animateSprites: 0
-  defaultS: {fileID: 21300000, guid: 17f429d7cb92b5b469d6a6b4ae9cf51d, type: 3}
-  spriteA: {fileID: 21300000, guid: 17f429d7cb92b5b469d6a6b4ae9cf51d, type: 3}
-  spriteB: {fileID: 21300000, guid: b77e0df715818a04baea0e80118a5a32, type: 3}
+  defaultS: {fileID: 21300000, guid: 9c49e316dbde4c643949ada854000f35, type: 3}
+  spriteA: {fileID: 21300000, guid: e69bd7dbe6d22934b9e3db07b6717dcf, type: 3}
+  spriteB: {fileID: 21300000, guid: 9c49e316dbde4c643949ada854000f35, type: 3}
   switchInterval: 0.6
 --- !u!4 &576829083
 Transform:
@@ -3181,7 +3180,7 @@ MonoBehaviour:
       u\u017Eite\u010Dn\xE1."
   firstCameraSpot: {fileID: 2062996115}
   secondCameraSpot: {fileID: 2095838131}
-  lanternTip: Press left mouse button, to find reflecting objects.
+  lanternTip: Press left mouse button, to find reflecting mirrors.
   secondDialogue:
   - speakerName: Holena
     lineText: AAAAAAAAAAOOOOOAH!!!!!!
@@ -3209,11 +3208,12 @@ MonoBehaviour:
   firstPCPos: {fileID: 368211434}
   firstMotherPos: {fileID: 511761977}
   firstDaughterPos: {fileID: 1354444621}
+  secondDaughterPos: {fileID: 1340973348}
   secondMotherPos: {fileID: 2120397980}
-  motherSprite: {fileID: 21300000, guid: 0750ba7cdbd1b934caaf6d2a497390c3, type: 3}
-  angryMother: {fileID: 21300000, guid: f6dabfa20da447747a0f641eaa031d6b, type: 3}
-  daughterSleep: {fileID: 21300000, guid: c32b044ebc138284784913f8dea1ff6d, type: 3}
-  daughterSprite: {fileID: 21300000, guid: 17f429d7cb92b5b469d6a6b4ae9cf51d, type: 3}
+  motherSprite: {fileID: 21300000, guid: 8f33ef236fdc45f4e8439415b1ba95ba, type: 3}
+  angryMother: {fileID: 21300000, guid: 1618d832d31f34447a38f4e6fe6cdd0d, type: 3}
+  daughterSleep: {fileID: 21300000, guid: 08a38c03791da0944aa025ed6bb93abf, type: 3}
+  daughterSprite: {fileID: 21300000, guid: 9c49e316dbde4c643949ada854000f35, type: 3}
   OnStageFinished:
     m_PersistentCalls:
       m_Calls:
@@ -4048,7 +4048,7 @@ Transform:
   m_GameObject: {fileID: 1354444620}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.419998, y: 0.8, z: 5.699997}
+  m_LocalPosition: {x: -6.06, y: 0.8, z: 5.699997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5337,9 +5337,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Billboard
   player: {fileID: 862872259}
   animateSprites: 0
-  defaultS: {fileID: 21300000, guid: 0750ba7cdbd1b934caaf6d2a497390c3, type: 3}
-  spriteA: {fileID: 21300000, guid: 0750ba7cdbd1b934caaf6d2a497390c3, type: 3}
-  spriteB: {fileID: 21300000, guid: 711706e2695487041b2bc860b30d2c72, type: 3}
+  defaultS: {fileID: 21300000, guid: 8f33ef236fdc45f4e8439415b1ba95ba, type: 3}
+  spriteA: {fileID: 21300000, guid: 8f33ef236fdc45f4e8439415b1ba95ba, type: 3}
+  spriteB: {fileID: 21300000, guid: eb80bb7ead804f34584eba8dcb4518cc, type: 3}
   switchInterval: 0.6
 --- !u!4 &1845405992
 Transform:
@@ -5411,7 +5411,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!136 &1845405994
