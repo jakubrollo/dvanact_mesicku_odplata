@@ -6,7 +6,8 @@ public class MainMenu : MonoBehaviour
     public ScreenFader screenFader;
     public void PlayGame()
     {
-        ScreenFader.Instance.FadeAndLoadScene("StoryboardIntro");
+        IntroOutroInfoHolder.stageScene = Stage.First;
+        ScreenFader.Instance.FadeAndLoadScene("ForestCutscene");
     }
 
     public void StartTutorial()
