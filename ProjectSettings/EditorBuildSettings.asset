@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/rolloj_preparation/Scenes/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 8a4fd5203e98fdc47b47397c6f08f858
   - enabled: 1
     path: Assets/Scenes/ForestCutscene.unity
