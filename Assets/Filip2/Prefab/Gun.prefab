@@ -136,7 +136,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7971106644633981880}
-  - component: {fileID: 8789884866068720000}
   - component: {fileID: 1506545946597205368}
   m_Layer: 0
   m_Name: Gun
@@ -162,34 +161,6 @@ Transform:
   - {fileID: 4429621024168329360}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8789884866068720000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3665921724454104132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9795a0512f871f5479f481f03c30cb96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GunController
-  damage: 25
-  range: 100
-  playerCamera: {fileID: 0}
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 1
-  shootAction: {fileID: 2372527967486973657, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
-  shootClip: {fileID: 8300000, guid: f498cde1d0f3e8747bac86fdef0f5a27, type: 3}
-  gunVisual: {fileID: 2448907262699000252}
-  recoilBackAmount: 0.1
-  recoilUpAmount: 5
-  recoilSpeed: 10
-  returnSpeed: 5
-  fireRate: 4
-  muzzleLight: {fileID: 4445043566262051123}
-  flashDuration: 0.05
 --- !u!82 &1506545946597205368
 AudioSource:
   m_ObjectHideFlags: 0

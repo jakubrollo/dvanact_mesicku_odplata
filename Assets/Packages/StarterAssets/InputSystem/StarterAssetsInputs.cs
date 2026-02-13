@@ -12,16 +12,17 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-
-		[Header("Movement Settings")]
+        [Header("Weapon Input")]
+        public bool fire;
+        [Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
-
+        public bool switchItem;
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -64,9 +65,26 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
-		}
-		
-		private void OnApplicationFocus(bool hasFocus)
+        }
+#if ENABLE_INPUT_SYSTEM
+        public void OnFire(InputValue value)
+        {
+            // TOTO PØIDEJ:
+            Debug.Log($"[Input] OnFire called! IsPressed: {value.isPressed}");
+            fire = value.isPressed;
+        }
+
+        public void OnSwitchItem(InputValue value)
+        {
+            // Reagujeme jen na stisk (ne na puštìní), proto ta podmínka
+            if (value.isPressed)
+            {
+                switchItem = true;
+            }
+        }
+#endif
+
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}

@@ -1,23 +1,25 @@
+using Photon.Pun;
+using StarterAssets; // D˘leûitÈ: P¯id·no pro p¯Ìstup k StarterAssetsInputs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
-public class GunController : MonoBehaviour
+public class GunController : MonoBehaviourPun
 {
     [SerializeField] private int damage = 25;
     [SerializeField] private float range = 100f;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask hitMask;
 
-    [SerializeField] private InputActionReference shootAction;
+    // ODSTRANÃNO: InputActionReference uû nepot¯ebujeme, pouûÌv·me StarterAssetsInputs
+    // [SerializeField] private InputActionReference shootAction;
 
     [SerializeField] private AudioClip shootClip;
     private AudioSource shootSource;
 
     [Header("Recoil")]
-    [SerializeField] private Transform gunVisual;   
+    [SerializeField] private Transform gunVisual;
     [SerializeField] private float recoilBackAmount = 0.1f;
     [SerializeField] private float recoilUpAmount = 5f;
     [SerializeField] private float recoilSpeed = 10f;
@@ -34,12 +36,11 @@ public class GunController : MonoBehaviour
     private Vector3 targetPos;
     private Quaternion targetRot;
 
-   // private bool canShoot = true;
-
     [SerializeField] private Light muzzleLight;
     [SerializeField] private float flashDuration = 0.05f;
 
-
+    // NOV…: Odkaz na vstupy hr·Ëe
+    private StarterAssetsInputs _input;
 
     private void Start()
     {
@@ -50,68 +51,25 @@ public class GunController : MonoBehaviour
 
         targetPos = originalLocalPos;
         targetRot = originalLocalRot;
-    }
 
-    private void OnEnable()
-    {
-        shootAction.action.Enable();
-        shootAction.action.performed += OnFire;
-    }
+        // Pokud to nenÌ moje zbraÚ, vypnu muzzle light na zaË·tku pro jistotu
+        if (muzzleLight != null) muzzleLight.enabled = false;
 
-    private void OnDisable()
-    {
-        shootAction.action.performed -= OnFire;
-        shootAction.action.Disable();
-    }
+        // NOV…: Najdeme komponentu StarterAssetsInputs na rodiËi (PlayerCapsule)
+        _input = GetComponentInParent<StarterAssetsInputs>();
 
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        if (_input == null && photonView.IsMine)
         {
-            Fire();
+            Debug.LogError("GunController: Nenalezen StarterAssetsInputs! Ujisti se, ûe zbraÚ je dÌtÏtem objektu s tÌmto skriptem.");
         }
     }
 
-    public void Fire()
-    {
-        if (Time.time < nextFireTime)
-            return;
-
-        nextFireTime = Time.time + (1f / fireRate);
-
-
-        StartCoroutine(MuzzleFlash());
-
-
-        if (shootClip != null)
-            shootSource.PlayOneShot(shootClip);
-
-        ApplyRecoil();
-
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
-        {
-            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-
-            if (damageable != null)
-            {
-                damageable.TakeDamage(damage);
-            }
-        }
-    }
-
-    private void ApplyRecoil()
-    {
-        gunVisual.localPosition = originalLocalPos;
-        gunVisual.localRotation = originalLocalRot;
-
-        targetPos -= new Vector3(0, 0, recoilBackAmount);
-        targetRot *= Quaternion.Euler(-recoilUpAmount, 0, 0);
-    }
+    // ODSTRANÃNO: OnEnable, OnDisable a OnFire (callback) uû nejsou pot¯eba.
+    // Input ¯eöÌ StarterAssetsInputs automaticky.
 
     private void Update()
     {
+        // 1. Recoil animace (lok·lnÌ)
         gunVisual.localPosition = Vector3.Lerp(
             gunVisual.localPosition,
             targetPos,
@@ -124,13 +82,87 @@ public class GunController : MonoBehaviour
 
         targetPos = Vector3.Lerp(targetPos, originalLocalPos, Time.deltaTime * returnSpeed);
         targetRot = Quaternion.Lerp(targetRot, originalLocalRot, Time.deltaTime * returnSpeed);
+
+        // 2. Logika st¯elby
+        // PodmÌnka: Je to m˘j hr·Ë? && M·m input komponentu? && DrûÌm tlaËÌtko st¯elby?
+        if (Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            Debug.Log($"[Gun Debug] Fire: {_input?.fire}, IsMine: {photonView.IsMine}, InputFound: {_input != null}");
+        }
+
+        if (photonView.IsMine && _input != null && _input.fire)
+        {
+            TryShoot();
+            _input.fire = false;
+        }
+    }
+
+    public void TryShoot()
+    {
+        // Kontrola kadence st¯elby
+        if (Time.time < nextFireTime)
+            return;
+
+        nextFireTime = Time.time + (1f / fireRate);
+
+        // A. Zavol·me vizu·lnÌ efekty (Zvuk + Flash + Recoil) pro VäECHNY hr·Ëe
+        photonView.RPC("RPC_ShootEffects", RpcTarget.All);
+
+        // B. Raycast a PoökozenÌ ¯eöÌme jen MY (Lok·lnÏ)
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
+        {
+            // Debug.Log("Trefil jsem: " + hit.collider.name);
+
+            // ZkusÌme najÌt PhotonView na trefenÈm objektu
+            PhotonView targetView = hit.collider.GetComponent<PhotonView>();
+
+            // Pokud m· objekt PhotonView (je to hr·Ë), poöleme mu RPC
+            if (targetView != null)
+            {
+                // Vol·me metodu "TakeDamage" na trefenÈm hr·Ëi
+                targetView.RPC("TakeDamage", RpcTarget.All, damage);
+            }
+            else
+            {
+                // Pokud to nenÌ sÌùov˝ objekt (nap¯. terË v singlu), pouûijeme star˝ interface
+                IDamageable damageable = hit.collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(damage);
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPC_ShootEffects()
+    {
+        // Spustit Muzzle Flash
+        StartCoroutine(MuzzleFlash());
+
+        // P¯ehr·t zvuk
+        if (shootClip != null && shootSource != null)
+            shootSource.PlayOneShot(shootClip);
+
+        // Aplikovat recoil
+        ApplyRecoil();
+    }
+
+    private void ApplyRecoil()
+    {
+        targetPos -= new Vector3(0, 0, recoilBackAmount);
+        targetRot *= Quaternion.Euler(-recoilUpAmount, 0, 0);
     }
 
     private IEnumerator MuzzleFlash()
     {
-        muzzleLight.enabled = true;
-        yield return new WaitForSeconds(flashDuration);
-        muzzleLight.enabled = false;
+        if (muzzleLight != null)
+        {
+            muzzleLight.enabled = true;
+            yield return new WaitForSeconds(flashDuration);
+            muzzleLight.enabled = false;
+        }
     }
-
 }

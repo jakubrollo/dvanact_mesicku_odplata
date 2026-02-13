@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameProgressionManager : MonoBehaviour
 {
     public static GameProgressionManager Instance;
+    public GameObject AmbiantSounds;
 
     [System.Serializable]
     public struct LevelData

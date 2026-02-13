@@ -108,6 +108,8 @@ public class AmbientClipsManager : MonoBehaviour
 
     private void WalkingSound()
     {
+        if (WalkingAudioSource == null) return;
+
         if (!WalkingAudioSource) return;
 
         var kb = Keyboard.current;
@@ -142,30 +144,37 @@ public class AmbientClipsManager : MonoBehaviour
         }
     }
 
-    void Start()
-    { 
-        MusicAudioSource.loop = true;
-        AmbientAudioSource.loop = true;
-
-        if (!WalkingAudioSource) { print("In AmbientSoundClips, the walking audio source from Player object is not set!"); }
+void Start()
+    {
+        // Tyto dva MUSÍ být přiřazené v Inspectoru (objekty ve scéně)
+        if (MusicAudioSource != null) MusicAudioSource.loop = true;
+        if (AmbientAudioSource != null) AmbientAudioSource.loop = true;
     }
 
     void Update()
     {
-        RunAmbientMusicBasedOnScene(ProgressionManager.CurrentSceneName());
-
-        if (scene == "Forest")
+        // Hudba a Ambient jedou vždy (jsou ve scéně)
+        if (MusicAudioSource != null && AmbientAudioSource != null)
         {
-            randomSoundTimer += Time.deltaTime;
+             RunAmbientMusicBasedOnScene(ProgressionManager.CurrentSceneName());
 
-            if (randomSoundTimer >= 22f)
+            if (scene == "Forest")
             {
-                print("Play random sound!");
-                randomSoundTimer = 0f;  
-                PlayRandomForrestSound();  
+                randomSoundTimer += Time.deltaTime;
+
+                if (randomSoundTimer >= 22f)
+                {
+                    print("Play random sound!");
+                    randomSoundTimer = 0f;
+                    PlayRandomForrestSound();
+                }
             }
         }
 
-        WalkingSound();
+        // Kroky řešíme jen když máme hráče
+        if (WalkingAudioSource != null)
+        {
+            WalkingSound();
+        }
     }
 }
