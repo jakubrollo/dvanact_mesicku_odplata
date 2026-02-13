@@ -61,7 +61,7 @@ public class LunarDudesController : MonoBehaviour
     {
         //get enemies to leave
         if(enemy != null)
-            enemy.TriggerFlee();
+          //  enemy.TriggerFlee();
         if (player != null)
         {
             var cc = player.GetComponent<UnityEngine.CharacterController>();

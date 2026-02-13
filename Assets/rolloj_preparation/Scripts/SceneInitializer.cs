@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun; // 1. Added Photon Namespace
 
 public class SceneInitializer : MonoBehaviour
 {
+    [Header("Multiplayer Setup")]
+    [SerializeField] private string playerPrefabName = "PlayerCapsule"; // Name of your prefab in Resources
+
     [Header("References")]
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject enemy; // Can be null (e.g. inside Cabin)
+    // [SerializeField] private GameObject player; // REMOVED: We don't use the scene player anymore
+    [SerializeField] private GameObject enemy; 
     [SerializeField] private AudioSource curAmbientAudioSource;
     [SerializeField] private AudioSource curMusicAudioSource;
     [SerializeField] private AudioSource curWalkAudioSource;
@@ -22,7 +26,6 @@ public class SceneInitializer : MonoBehaviour
 
     [SerializeField] private PCMonologueManager pcMonolog;
 
-
     void Start()
     {
         // 1. Get Data from Manager
@@ -32,25 +35,24 @@ public class SceneInitializer : MonoBehaviour
 
             if (data.ForestStage == LunarDudesStage.First)
             {
-                //here normaly it would trigger the start of maruska monologue
-              /*  if(pcMonolog != null)
+               /* if(pcMonolog != null)
                     pcMonolog.ActivatePCMonologue(true);*/
             }
 
             SetupScene(data);
-            AmbientClipsManager ambientManager =GameProgressionManager.Instance.GetComponentInChildren<AmbientClipsManager>();
-            if(ambientManager != null)
+
+            // Audio Setup for the Ambient Manager (Scene based)
+            AmbientClipsManager ambientManager = GameProgressionManager.Instance.GetComponentInChildren<AmbientClipsManager>();
+            if (ambientManager != null)
             {
                 ambientManager.AmbientAudioSource = curAmbientAudioSource;
                 ambientManager.MusicAudioSource = curMusicAudioSource;
-                ambientManager.WalkingAudioSource = curWalkAudioSource;
+                // Note: WalkingAudioSource is assigned inside SetupScene after instantiation
             }
-
         }
         else
         {
             Debug.LogWarning("No Manager found. Running scene with default inspector settings.");
-            // Optional: You could call SetupScene with default data here for testing
         }
     }
 
@@ -69,29 +71,45 @@ public class SceneInitializer : MonoBehaviour
 
     void SetupScene(GameProgressionManager.LevelData data)
     {
-        // --- 1. Setup Player Position ---
-        if (player != null && playerSpawnPoints.Length > 0)
+        // --- 1. SPAWN PLAYER (Networked) ---
+        if (PhotonNetwork.IsConnected)
         {
+            // Pick the spawn point from the list based on LevelData
             int index = Mathf.Clamp(data.spawnPointIndex, 0, playerSpawnPoints.Length - 1);
+            Transform spawnPoint = playerSpawnPoints[index];
 
-            // Disable CharacterController briefly to allow teleport
-            CharacterController cc = player.GetComponent<CharacterController>();
-            if (cc) cc.enabled = false;
+            // Add random offset so players don't spawn inside each other
+            Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            Vector3 spawnPos = spawnPoint.position + randomOffset + (Vector3.up * 0.5f); // Slight lift to avoid floor clipping
 
-            player.transform.position = playerSpawnPoints[index].position;
-            player.transform.rotation = playerSpawnPoints[index].rotation;
+            object[] myCustomData = new object[] { PhotonNetwork.NickName };
 
-            if (cc) cc.enabled = true;
+            // Instantiate the player
+            GameObject newPlayer = PhotonNetwork.Instantiate(playerPrefabName, spawnPos, spawnPoint.rotation, 0, myCustomData);
+
+            // --- AUDIO CONNECTION (Important for Walking Sounds) ---
+            AmbientClipsManager ambientManager = GameProgressionManager.Instance.GetComponentInChildren<AmbientClipsManager>();
+            if (ambientManager != null && newPlayer != null)
+            {
+                // Find or Add AudioSource on the new player
+                AudioSource playerAudio = newPlayer.GetComponent<AudioSource>();
+                if (playerAudio == null) playerAudio = newPlayer.AddComponent<AudioSource>();
+                
+                // Connect it to the manager
+                ambientManager.WalkingAudioSource = playerAudio;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Not connected to Photon! Cannot spawn player.");
         }
 
         // --- 2. Setup Exits / Events ---
-        // First, turn EVERYTHING off
         foreach (var obj in eventsAndExits)
         {
             if (obj != null) obj.SetActive(false);
         }
 
-        // Then turn the specific one ON
         if (eventsAndExits.Length > 0)
         {
             int index = Mathf.Clamp(data.activeEventIndex, 0, eventsAndExits.Length - 1);
@@ -104,7 +122,7 @@ public class SceneInitializer : MonoBehaviour
         {
             if (data.hasEnemy)
             {
-                //enemy.SetActive(true);
+                enemy.SetActive(true);
 
                 // Position Enemy
                 if (enemySpawnPoints.Length > 0)

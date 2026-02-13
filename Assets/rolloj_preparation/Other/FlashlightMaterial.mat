@@ -36,6 +36,6 @@ Material:
     - _Smoothness: 0.1
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0.9}
-    - _Position: {r: 0.53606683, g: 0.5095972, b: 0, a: 0}
+    - _Position: {r: 0.4823551, g: 0.5098462, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

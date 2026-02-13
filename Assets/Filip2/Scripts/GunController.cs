@@ -96,42 +96,31 @@ public class GunController : MonoBehaviourPun
             _input.fire = false;
         }
     }
-
     public void TryShoot()
     {
-        // Kontrola kadence støelby
-        if (Time.time < nextFireTime)
-            return;
-
+        if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + (1f / fireRate);
 
-        // A. Zavoláme vizuální efekty (Zvuk + Flash + Recoil) pro VŠECHNY hráèe
+        // A. Efekty
         photonView.RPC("RPC_ShootEffects", RpcTarget.All);
 
-        // B. Raycast a Poškození øešíme jen MY (Lokálnì)
+        // B. Raycast
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
         {
             // Debug.Log("Trefil jsem: " + hit.collider.name);
 
-            // Zkusíme najít PhotonView na trefeném objektu
-            PhotonView targetView = hit.collider.GetComponent<PhotonView>();
+            // ZMÌNA: Hledáme IDamageable na objektu NEBO NA JEHO RODIÈÍCH
+            // To vyøeší problém, kdy trefíš collider ruky, ale ivoty jsou na hlavním objektu.
+            IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
 
-            // Pokud má objekt PhotonView (je to hráè), pošleme mu RPC
-            if (targetView != null)
+            if (target != null)
             {
-                // Voláme metodu "TakeDamage" na trefeném hráèi
-                targetView.RPC("TakeDamage", RpcTarget.All, damage);
-            }
-            else
-            {
-                // Pokud to není síovı objekt (napø. terè v singlu), pouijeme starı interface
-                IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-                if (damageable != null)
-                {
-                    damageable.TakeDamage(damage);
-                }
+                // Zavoláme metodu rozhraní. 
+                // EnemyHealthManager (nebo PlayerHealth) uvnitø této metody sám zavolá své RPC.
+                // Tím oddìlíme logiku zbranì od logiky sítì cíle.
+                target.TakeDamage(damage);
             }
         }
     }

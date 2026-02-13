@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Linq;
 using UnityEngine;
 // We access Unity's SceneManager explicitly to avoid naming conflicts
@@ -117,17 +118,16 @@ public class GameProgressionManager : MonoBehaviour
         LevelData step = progressionSteps[currentStepIndex];
         if (ScreenFader.Instance != null)
         {
-            print("Using ScreenFader to reload current level: " + step.sceneName);
             // This triggers the visual Fade Out -> Load
-            ScreenFader.Instance.FadeAndLoadScene(step.sceneName);
+            PhotonNetwork.LoadLevel(step.sceneName);
             // run ambient loop sounds
             //Ambients.RunAmbientMusicBasedOnScene(step.sceneName);
         }
         else
         {
-            print("No ScreenFader found. Reloading current level directly: " + step.sceneName);
             // Fallback if Fader is missing
-            UnityEngine.SceneManagement.SceneManager.LoadScene(step.sceneName);
+            PhotonNetwork.LoadLevel(step.sceneName);
+           // UnityEngine.SceneManagement.SceneManager.LoadScene(step.sceneName);
 
 	        // run ambient loop sounds
        	    //Ambients.RunAmbientMusicBasedOnScene(step.sceneName);

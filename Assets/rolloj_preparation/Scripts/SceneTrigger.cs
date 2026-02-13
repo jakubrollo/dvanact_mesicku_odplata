@@ -39,7 +39,7 @@ public class SceneTrigger : MonoBehaviour
             HorrorEnemyAI ai = enemyObject.GetComponent<HorrorEnemyAI>();
             if (ai != null)
             {
-               ai.TriggerFlee(); // <--- Calls the new function we
+               //ai.TriggerFlee(); // <--- Calls the new function we
             }
         }
 

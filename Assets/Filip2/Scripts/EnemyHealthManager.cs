@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun; // 1. P¯id·n Photon
 
-public class EnemyHealthManager : MonoBehaviour, IDamageable
+// 2. DÏdÌme od MonoBehaviourPun pro p¯Ìstup k sÌti
+public class EnemyHealthManager : MonoBehaviourPun, IDamageable
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 100;
@@ -17,8 +19,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     private NavMeshAgent agent;
     public bool isDead = false;
 
+    // Odkaz na Controller (pro vypnutÌ pohybu), ale spawner uû nepot¯ebujeme
     private HorrorEnemyAI enemyController;
-    private EnemySpawner spawner;
 
     [Header("Hit Tween")]
     [SerializeField] private float hitShakeDistance = 0.15f;
@@ -29,42 +31,46 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     [SerializeField] private float deathDuration = 1.5f;
     [SerializeField] private float deathRotateSpeed = 360f;
 
-
-
     private void Start()
     {
         currentHealth = maxHealth;
- 
+
         agent = GetComponent<NavMeshAgent>();
         enemyController = GetComponent<HorrorEnemyAI>();
+
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.spatialBlend = 1f;
+        audioSource.spatialBlend = 1f; // 3D zvuk
         audioSource.playOnAwake = false;
-        audioSource.volume = 6f;
+        audioSource.volume = 1f; // 6f je moc, Unity to stejnÏ o¯Ìzne na 1 nebo to bude zkreslenÈ
     }
+
+    // Tuto metodu vol· GunController
     public void TakeDamage(int damage)
     {
-        if(isDead) return;
-        if(spawner == null)
-        {
-            spawner = enemyController.spawner;
-        }
-        Debug.Log("Bubak hit");
+        // MÌsto p¯ÌmÈho ubr·nÌ ûivota poöleme zpr·vu vöem (vËetnÏ sebe)
+        photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
 
+    [PunRPC]
+    public void RPC_TakeDamage(int damage)
+    {
         if (isDead) return;
 
         currentHealth -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHealth}");
+        // Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHealth}");
 
-
-        if (hitSound != null)
+        // P¯ehr·t zvuk z·sahu
+        if (hitSound != null && audioSource != null)
             audioSource.PlayOneShot(hitSound);
 
-
-        if (agent != null)
-            StartCoroutine(StunAgent());
-
+        // Shake efekt (pouze vizu·lnÌ, lok·lnÌ)
         StartCoroutine(HitShake());
+
+        // Stun (pokud jsme MasterClient, protoûe ten ovl·d· NavMeshAgenta)
+        if (PhotonNetwork.IsMasterClient && agent != null && agent.enabled)
+        {
+            StartCoroutine(StunAgent());
+        }
 
         if (currentHealth <= 0)
         {
@@ -81,22 +87,28 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             elapsed += Time.deltaTime;
             float offset = Mathf.Sin(elapsed * 80f) * hitShakeDistance;
+            // H˝beme jen modelem, ne cel˝m transformem, pokud je agent aktivnÌ,
+            // ale pro jednoduchost to nech·me, agent to pak srovn·.
             transform.position = originalPos + transform.right * offset;
             yield return null;
         }
-
-        transform.position = originalPos;
+        // Vr·tÌme se na pozici (nebo nech·me agenta)
     }
-
 
     IEnumerator StunAgent()
     {
         if (agent == null) yield break;
-        if(isDead) yield break;
-        agent.isStopped = true;
-        yield return new WaitForSeconds(stunDuration);
         if (isDead) yield break;
-        agent.isStopped = false;
+
+        if (agent.isActiveAndEnabled)
+            agent.isStopped = true;
+
+        yield return new WaitForSeconds(stunDuration);
+
+        if (isDead) yield break;
+
+        if (agent.isActiveAndEnabled)
+            agent.isStopped = false;
     }
 
     void Die()
@@ -104,21 +116,19 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         if (isDead) return;
         isDead = true;
 
-        if (deathSound != null)
+        if (deathSound != null && audioSource != null)
             audioSource.PlayOneShot(deathSound);
 
-        if (agent != null)
-            agent.enabled = false;
+        // Vypnout agenta (jen MasterClient to m˘ûe udÏlat efektivnÏ)
+        if (agent != null) agent.enabled = false;
 
-        // vypnout kolize (aby neblokoval hr·Ëe)
+        // Vypnout kolize
         foreach (var col in GetComponentsInChildren<Collider>())
             col.enabled = false;
 
         StartCoroutine(DeathAnimation());
     }
 
-
-    
     IEnumerator DeathAnimation()
     {
         Vector3 startPos = transform.position;
@@ -131,30 +141,20 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             elapsed += Time.deltaTime;
             float t = elapsed / deathDuration;
 
-            // sink
+            // Sink & Rotate (dÏje se lok·lnÏ na kaûdÈm PC pro vizu·lnÌ efekt)
             transform.position = Vector3.Lerp(startPos, endPos, t);
-
-            // rotate
             transform.Rotate(Vector3.up, deathRotateSpeed * Time.deltaTime);
 
             yield return null;
         }
 
-        // notify spawner
-        if (spawner == null)
-            spawner = enemyController.spawner;
-
-        if (spawner != null)
-            spawner.OnEnemyKilled(gameObject);
-        else
+        // --- SÕçOV… ZNI»ENÕ ---
+        // Jen Master Client m· pr·vo zniËit sÌùov˝ objekt.
+        // OstatnÌm zmizÌ automaticky, jakmile ho Master zniËÌ.
+        // Spawner (ten nov˝) automaticky pozn·, ûe je objekt pryË (je null) a vyhodÌ ho ze seznamu.
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (spawner == null)
-            {
-                spawner = enemyController.spawner;
-            }
-
-            spawner.OnEnemyKilled(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
-
 }

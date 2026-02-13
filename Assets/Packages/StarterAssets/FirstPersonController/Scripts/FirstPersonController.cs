@@ -3,6 +3,8 @@ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
+using System.Collections.Generic;
+using System.Collections;
 
 namespace StarterAssets
 {
@@ -14,10 +16,19 @@ namespace StarterAssets
     {
         [Header("Multiplayer Setup")]
         [Tooltip("SEM přetáhni objekt 'PlayerFollowCamera' z hierarchie prefabu")]
-        public GameObject CinemachineVirtualCamera; // <--- TOTO ZDE CHYBĚLO
+        public GameObject CinemachineVirtualCamera;
 
         [Tooltip("SEM přetáhni MainCamera, pokud ji máš uvnitř hráče")]
         public GameObject myPlayerCamera;
+
+        [Header("Death & Respawn")]
+        [Tooltip("SEM přetáhni DeathCamera (Cinemachine) z hierarchie prefabu")]
+        public GameObject deathCamera;
+
+        [Tooltip("Zde se automaticky přiřadí objekt s tagem 'Respawn'")]
+        public GameObject respawnPoint;
+
+        public float respawnTime = 3.0f;
 
 
         [Header("Player")]
@@ -108,28 +119,23 @@ namespace StarterAssets
 
         private void Start()
         {
+            // Ujistíme se, že DeathCamera je na začátku vypnutá
+            if (deathCamera != null) deathCamera.SetActive(false);
+
             // === MULTIPLAYER LOGIKA ===
             if (!photonView.IsMine)
             {
                 // 1. ZNIČIT INPUT SYSTEM - OPRAVA
-                // Nemůžeme použít Destroy(), protože FirstPersonController ho vyžaduje.
-                // Místo toho ho jen deaktivujeme.
                 var playerInput = GetComponent<PlayerInput>();
                 if (playerInput != null)
                 {
                     playerInput.DeactivateInput();
                     playerInput.enabled = false;
-                    // Destroy(playerInput); <--- TOTO JSME SMAZALI, TO ZPŮSOBOVALO CHYBU
                 }
 
-                // 2. VYPNOUT DALŠÍ SKRIPTY, KTERÉ SAHAJÍ NA INPUT
-                // Tenhle skript ti házel tu druhou chybu (PauseAndCursorController)
-                // Musíme ho najít a vypnout, pokud je na stejném objektu
-                var pauseScript = GetComponent<PauseAndCursorController>(); // nebo jak se přesně jmenuje tvůj skript
-                if (pauseScript != null)
-                {
-                    pauseScript.enabled = false;
-                }
+                // 2. VYPNOUT DALŠÍ SKRIPTY
+                var pauseScript = GetComponent<PauseAndCursorController>();
+                if (pauseScript != null) pauseScript.enabled = false;
 
                 // 3. VYPNOUT STARTER ASSETS INPUTS
                 var inputValues = GetComponent<StarterAssetsInputs>();
@@ -138,10 +144,6 @@ namespace StarterAssets
                 // 4. VYPNOUT KLASICKOU KAMERU
                 if (myPlayerCamera != null)
                 {
-                    // NEVYPÍNAT CELÝ OBJEKT! Jinak zmizí zbraň, která je jeho dítětem.
-                    // myPlayerCamera.SetActive(false); <--- TOTO SMAŽ NEBO ZAKOMENTUJ
-
-                    // Místo toho vypneme jen komponenty:
                     var camComp = myPlayerCamera.GetComponent<Camera>();
                     if (camComp) camComp.enabled = false;
 
@@ -201,6 +203,9 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            // Pokud nemůžeme hýbat (např. jsme mrtví), neotáčíme kamerou
+            if (!canMove) return;
+
             if (_input.look.sqrMagnitude >= _threshold)
             {
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
@@ -277,6 +282,63 @@ namespace StarterAssets
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
+
+        [PunRPC]
+        public void Die()
+        {
+            if (!photonView.IsMine) return;
+
+            Debug.Log("ZEMŘEL JSEM! Respawning...");
+            StartCoroutine(RespawnRoutine());
+        }
+
+        IEnumerator RespawnRoutine()
+        {
+            // 1. ZNEHYBNĚNÍ
+            canMove = false;
+            _input.move = Vector2.zero; // Zastavit pohyb
+            if (_controller) _controller.enabled = false; // Vypnout CC aby šlo teleportovat
+
+            // 2. KAMERY (Přepnutí na smrt)
+            if (CinemachineVirtualCamera) CinemachineVirtualCamera.SetActive(false); // Vypnout normální cam
+            if (deathCamera) deathCamera.SetActive(true); // Zapnout death cam
+
+            // 3. ČEKÁNÍ
+            yield return new WaitForSeconds(respawnTime);
+
+            // 4. NAJÍT RESPAWN POINT (Pokud není nastavený)
+            if (respawnPoint == null)
+            {
+                // Hledáme objekt s tagem "Respawn"
+                GameObject[] spawns = GameObject.FindGameObjectsWithTag("Respawn");
+                if (spawns.Length > 0)
+                {
+                    respawnPoint = spawns[Random.Range(0, spawns.Length)];
+                }
+                else
+                {
+                    Debug.LogWarning("Nenalezen žádný objekt s tagem 'Respawn'! Teleportuji na 0,0,0.");
+                }
+            }
+
+            // 5. TELEPORT
+            if (respawnPoint != null)
+            {
+                transform.position = respawnPoint.transform.position;
+                transform.rotation = respawnPoint.transform.rotation;
+            }
+            else
+            {
+                transform.position = Vector3.zero;
+            }
+
+            // 6. OBNOVENÍ
+            if (deathCamera) deathCamera.SetActive(false);
+            if (CinemachineVirtualCamera) CinemachineVirtualCamera.SetActive(true);
+
+            if (_controller) _controller.enabled = true;
+            canMove = true;
         }
 
         private void OnDrawGizmosSelected()

@@ -109,7 +109,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        RoomOptions options = new RoomOptions() { MaxPlayers = 4, IsVisible = true, IsOpen = true };
+        RoomOptions options = new RoomOptions() { MaxPlayers = 10, IsVisible = true, IsOpen = true };
         PhotonNetwork.CreateRoom(roomNamePrefix + Random.Range(1000, 9999), options);
     }
 

@@ -57,7 +57,7 @@ public class CabinSceneManager : MonoBehaviour
 
                 // DÙLEŽITÉ: Použít LoadLevel, ne SceneManager.LoadScene!
                 // spis sem dat fader, ale pro test tohle bude staèit
-                PhotonNetwork.LoadLevel("Forest"); 
+                GameProgressionManager.Instance.LoadNextLevel();
             }
         }
     }

@@ -21,6 +21,8 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
         public bool switchItem;
+        public bool candleToggle;
+
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
 		{
@@ -83,6 +85,26 @@ namespace StarterAssets
             }
         }
 #endif
+
+#if ENABLE_INPUT_SYSTEM
+        public void OnToggleCandle(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                candleToggle = true;
+            }
+        }
+
+        // Pro jistotu pøidej i tuto variantu, kdyby se akce jmenovala jinak:
+        public void OnCandleToggle(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                candleToggle = true;
+            }
+        }
+#endif
+
 
         private void OnApplicationFocus(bool hasFocus)
 		{

@@ -2,44 +2,70 @@ using UnityEngine;
 
 public class CandleAudio : MonoBehaviour
 {
-    public AudioClip candleLightSound;  // Sound when turning on
-    public AudioClip candleExtinguishSound;  // Sound when turning off
-    public AudioClip candleExtinguishSound2;  // Sound when turning off
-    public AudioClip candleLoopSound;  // Optional: ambient crackling while lit
+    [Header("Audio Clips")]
+    public AudioClip candleLightSound;       // Zvuk zapálení
+    public AudioClip candleExtinguishSound;  // Zvuk zhasnutí
+    public AudioClip candleLoopSound;        // Smyèka hoøení (praskání)
 
-    private AudioSource audioSource;
-    private AudioSource loopAudioSource;  // Separate source for looping
+    [Header("Audio Configuration")]
+    [Tooltip("Pokud je prázdné, skript si ho najde na tomto objektu.")]
+    public AudioSource audioSource;
+
+    private AudioSource loopAudioSource;  // Druhý zdroj pro smyèku
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        // 1. Automatické nalezení nebo pøidání AudioSource
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
 
-        // If you want a looping sound, create a second AudioSource
+        // 2. DÙLEŽITÉ PRO MULTIPLAYER: Vynutit 3D zvuk
+        // Pokud by toto bylo 0, slyšel bys všechny hráèe stejnì hlasitì všude po mapì.
+        audioSource.spatialBlend = 1.0f;
+        audioSource.playOnAwake = false;
+
+        // 3. Vytvoøení zdroje pro smyèku (pokud existuje klip)
         if (candleLoopSound != null)
         {
             loopAudioSource = gameObject.AddComponent<AudioSource>();
             loopAudioSource.clip = candleLoopSound;
             loopAudioSource.loop = true;
             loopAudioSource.playOnAwake = false;
+
+            // Zkopírujeme nastavení z hlavního zdroje, aby se chovaly stejnì
+            loopAudioSource.spatialBlend = 1.0f; // Taky musí být 3D!
+            loopAudioSource.rolloffMode = audioSource.rolloffMode;
+            loopAudioSource.minDistance = audioSource.minDistance;
+            loopAudioSource.maxDistance = audioSource.maxDistance;
+            loopAudioSource.volume = audioSource.volume * 0.8f; // Smyèka bývá trochu tišší
         }
     }
 
     public void TurnOn()
     {
-        audioSource.PlayOneShot(candleLightSound);
+        if (candleLightSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(candleLightSound);
+        }
 
         if (loopAudioSource != null)
         {
-            loopAudioSource.Play();
+            if (!loopAudioSource.isPlaying) loopAudioSource.Play();
         }
     }
 
     public void TurnOff()
     {
-        audioSource.PlayOneShot(candleExtinguishSound);
-        //Debug.Log("candle extinguished");
-        //Debug.Log(candleExtinguishSound);
-        //audioSource.PlayOneShot(candleExtinguishSound2);
+        if (candleExtinguishSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(candleExtinguishSound);
+        }
 
         if (loopAudioSource != null)
         {

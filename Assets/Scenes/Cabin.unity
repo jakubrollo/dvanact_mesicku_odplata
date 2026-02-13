@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc96343cd37fe649b3461314d21eea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerPrefabName: PlayerCapsule
+  playerPrefabName: PlayerCapsuleNoEnemy
   spawnPoint: {fileID: 2014292078}
   skipButton: {fileID: 2121202755351712842, guid: 029b99c0397768942a93fcf99232e3f3, type: 3}
   player: {fileID: 0}
@@ -4084,7 +4084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac1786fd47eb1c4b84cc28dc5f76089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  player: {fileID: 0}
+  playerPrefabName: PlayerCapsule
   enemy: {fileID: 0}
   curAmbientAudioSource: {fileID: 0}
   curMusicAudioSource: {fileID: 0}
