@@ -59,6 +59,7 @@ public class LunarDudesController : MonoBehaviour
 
     private IEnumerator RunDialogueCoroutine(List<DialogueLine> lines)
     {
+        //get enemies to leave
         if(enemy != null)
             enemy.TriggerFlee();
         if (player != null)

@@ -69,7 +69,7 @@ public class CandleBehavior : MonoBehaviour
         }
         else
         {
-            Debug.LogError("CandleBehavior requires a Renderer component on the same GameObject to access the material.");
+         //   Debug.LogError("CandleBehavior requires a Renderer component on the same GameObject to access the material.");
         }
 
         // --- 3. Light & Flame Setup ---
