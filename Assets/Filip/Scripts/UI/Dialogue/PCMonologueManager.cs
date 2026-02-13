@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 
 public class PCMonologueManager : MonoBehaviour
 {
-    [SerializeField] private float pauseBetweenLines = 6f;
+   /* [SerializeField] private float pauseBetweenLines = 6f;
     [SerializeField] private InputActionReference skipButton;
 
     [SerializeField] private DialogueTextController textController;
@@ -88,5 +88,5 @@ public class PCMonologueManager : MonoBehaviour
 
         textController.UpdateTextInBox(line.lineText, line.speakerName);
 
-    }
+    }*/
 }

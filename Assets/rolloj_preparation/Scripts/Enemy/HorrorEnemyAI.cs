@@ -2,6 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using Cinemachine;
+using System.Linq;
+using System.Collections.Generic;
+using StarterAssets;
+using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(AudioSource))]
@@ -9,7 +14,6 @@ public class HorrorEnemyAI : MonoBehaviour
 {
     // --- Configuration ---
     [Header("References")]
-    [SerializeField] private CandleBehavior playerCandle;
     [SerializeField] private Transform playerTransform;
 
     [Tooltip("The Main Camera (The one with the Cinemachine Brain)")]
@@ -22,23 +26,9 @@ public class HorrorEnemyAI : MonoBehaviour
     [Tooltip("Drag the Player's movement script here so we can disable it on death")]
     [SerializeField] private MonoBehaviour playerMovementScript;
 
-    [Header("Notice Logic")]
-    [SerializeField] private float noticeBuildUpTime = 5f;
-    [SerializeField] private float noticeDecayTime = 2f;
-    [SerializeField] private AnimationCurve noticeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-
-    [Header("Detection Radius (Independent)")]
-    [SerializeField] private float minRadius = 3f;
-    [SerializeField] private float maxRadius = 15f;
-    [SerializeField] private float radiusGrowthSpeed = 2.0f;
-    [SerializeField] private float radiusDecaySpeed = 5.0f;
-    [SerializeField] private float chaseThreshold = 0.9f;
 
     [Header("Movement")]
-    [SerializeField] private float wanderSpeed = 2.0f;
     [SerializeField] private float chaseSpeed = 5.5f;
-    [SerializeField] private float fleeSpeed = 7.0f;
-    [SerializeField] private float wanderRadius = 10f;
     [SerializeField] private float rotateToPlayerSpeed = 5.0f;
 
     [Header("Kill Settings")]
@@ -63,39 +53,88 @@ public class HorrorEnemyAI : MonoBehaviour
     [SerializeField] private float maxBreathingPitch = 1.8f;
 
     // --- State Variables ---
-    private NavMeshAgent agent;
+    [HideInInspector] public NavMeshAgent agent;
     private AudioSource mainAudioSource;
     private AudioSource breathingAudioSource;
 
-    private float rawNoticeValue = 0f;
-    private float currentNoticeLevel = 0f;
-    private float currentDetectionRadius;
-    private float chaseMemoryTimer = 0f;
-    private float screamTimer = 0f;
-    private Coroutine activeFadeCoroutine;
-    private bool isForcedFlee = false;
-    private Vector3 lastKnownPosition;
     private Transform killCamLookTarget;
     public bool cameraIsLocked = false;
 
-    public void TriggerFlee()
-    {
-        isForcedFlee = true;
-        SetState(EnemyState.Disappear);
-    }
-    private enum EnemyState { Wander, NoticeReaction, Chase, Disappear, Kill }
-    private EnemyState currentState = EnemyState.Wander;
+ //   [SerializeField] public List<Transform> players = new List<Transform>();
 
+    private Transform currentTarget;
+
+    private bool isKilling = false;
+
+    private float pathCheckTimer = 0f;
+    [SerializeField] private float pathCheckInterval = 1.5f;
+    [SerializeField] private float stuckDistanceThreshold = 0.2f;
+
+    private Vector3 lastPosition;
+
+    [HideInInspector] public EnemySpawner spawner;
+
+    private EnemyHealthManager healthManager;
+
+    void CheckPathValidity()
+    {
+        pathCheckTimer += Time.deltaTime;
+
+        if (pathCheckTimer < pathCheckInterval) return;
+
+        pathCheckTimer = 0f;
+
+        if (agent.pathStatus == NavMeshPathStatus.PathInvalid ||
+            agent.pathStatus == NavMeshPathStatus.PathPartial)
+        {
+            Debug.LogWarning("Enemy has no valid path ? destroying");
+            Destroy(gameObject);
+            return;
+        }
+
+        float movedDistance = Vector3.Distance(transform.position, lastPosition);
+
+        if (movedDistance < stuckDistanceThreshold && agent.remainingDistance > 1f)
+        {
+            Debug.LogWarning("Enemy is stuck ? destroying");
+            spawner.OnEnemyKilled(gameObject);
+           // Destroy(gameObject);
+            return;
+        }
+
+        lastPosition = transform.position;
+    }
+
+
+    public void ConfigEnemy(GameObject playerParent, EnemySpawner spawner)
+    {
+       // this.players = players;
+        this.spawner = spawner;
+
+
+        GameObject player = playerParent.transform.Find("PlayerCapsule").gameObject;
+
+        currentTarget = player.transform;
+
+        playerTransform = player.transform;
+        
+        playerCameraTransform = playerParent.transform.Find("MainCamera");
+
+        playerVirtualCameraObject = playerParent.transform.Find("PlayerFollowCamera").gameObject; 
+        deathCameraObject = playerParent.transform.Find("DeathCamera").gameObject.GetComponent<CinemachineVirtualCamera>();
+
+        playerMovementScript = player.GetComponentInChildren<FirstPersonController>();//Extremly horrible
+    }
     void Start()
     {
+        healthManager = GetComponent<EnemyHealthManager>();
         agent = GetComponent<NavMeshAgent>();
+
         mainAudioSource = GetComponent<AudioSource>();
 
         mainAudioSource.volume = 1.0f;
         mainAudioSource.spatialBlend = 1.0f;
         mainAudioSource.loop = false;
-
-        currentDetectionRadius = minRadius;
 
         breathingAudioSource = gameObject.AddComponent<AudioSource>();
         breathingAudioSource.clip = breathingSound;
@@ -103,33 +142,68 @@ public class HorrorEnemyAI : MonoBehaviour
         breathingAudioSource.spatialBlend = 0.0f;
         breathingAudioSource.playOnAwake = true;
         breathingAudioSource.Play();
-        if (GameProgressionManager.Instance != null)
-        {
-            var data = GameProgressionManager.Instance.GetCurrentLevelData();
-            if (data.hasEnemy)
-            {
-                this.chaseSpeed = data.chaseSpeed;
-                this.noticeBuildUpTime = data.noticeBuildUpTime;
-                this.maxRadius = data.maxDetectionRadius;
-                this.currentDetectionRadius = minRadius;
-            }
-        }
-        SetState(EnemyState.Wander);
+    }
+
+    public void TriggerFlee()
+    {
+        Debug.LogWarning("enemy should flee");
     }
 
     void Update()
     {
-        // If we are killing the player, skip logic and just lock camera
-        if (currentState == EnemyState.Kill)
+        if (healthManager.isDead) return;
+        if (isKilling) return;
+
+        if (!spawner.isActiveAndEnabled)
         {
-            HandleKillCameraLock();
-            return;
+            PickClosestPlayer();
         }
 
-        HandleNoticeLogic();
-        HandleRadiusLogic();
-        HandleBreathingAudio();
-        HandleStateLogic();
+       /* if (currentTarget == null)
+        {
+            PickClosestPlayer();
+            return;
+        }*/
+
+        agent.SetDestination(currentTarget.position);
+
+        float dist = Vector3.Distance(transform.position, currentTarget.position);
+
+        if (dist < killDistance)
+        {
+            KillPlayer(currentTarget);
+        }
+    }
+
+    void KillPlayer(Transform player)
+    {
+        if (isKilling) return;
+
+        isKilling = true;
+
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+
+        // disable player movement
+        if (playerMovementScript != null)
+            playerMovementScript.enabled = false;
+
+        // play crunch
+        if (crunchSound != null)
+        {
+            mainAudioSource.Stop();
+            mainAudioSource.loop = false;
+            mainAudioSource.clip = crunchSound;
+            mainAudioSource.volume = crunchVolume;
+            mainAudioSource.Play();
+        }
+
+        HandleKillCameraLock();
+
+        StartCoroutine(DeathSequence());
+    
+
+        //PickClosestPlayer();
     }
 
 
@@ -152,205 +226,25 @@ public class HorrorEnemyAI : MonoBehaviour
             killCamLookTarget.position = transform.position + Vector3.up * enemyEyeHeight;
             deathCameraObject.LookAt = killCamLookTarget;
         }
+        PickClosestPlayer();
     }
 
 
-    void HandleNoticeLogic()
-    {
-        if (playerCandle.candle_turned_on) // change this to Martin's candle, otherwise null
-            rawNoticeValue += Time.deltaTime / noticeBuildUpTime;
-        else
-            rawNoticeValue -= Time.deltaTime / noticeDecayTime;
-
-        rawNoticeValue = Mathf.Clamp01(rawNoticeValue);
-        currentNoticeLevel = noticeCurve.Evaluate(rawNoticeValue);
-    }
-    public void SetDifficulty(float newChaseSpeed, float newNoticeTime, float newMaxRadius)
+    public void SetDifficulty(float newChaseSpeed)
     {
         this.chaseSpeed = newChaseSpeed;
-        this.noticeBuildUpTime = newNoticeTime;
-        this.maxRadius = newMaxRadius;
 
-        // Reset state to be safe
-        currentDetectionRadius = minRadius;
-    }
-    void HandleRadiusLogic()
-    {
-        if (playerCandle.candle_turned_on)
-            currentDetectionRadius += radiusGrowthSpeed * Time.deltaTime;
-        else
-            currentDetectionRadius -= radiusDecaySpeed * Time.deltaTime;
-
-        currentDetectionRadius = Mathf.Clamp(currentDetectionRadius, minRadius, maxRadius);
     }
 
     void HandleBreathingAudio()
     {
-        if (breathingAudioSource != null)
+      /*  if (breathingAudioSource != null)
         {
             breathingAudioSource.volume = breathingVolumeCurve.Evaluate(currentNoticeLevel);
             breathingAudioSource.pitch = Mathf.Lerp(minBreathingPitch, maxBreathingPitch, currentNoticeLevel);
-        }
+        }*/
     }
 
-    void HandleStateLogic()
-    {
-        float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-
-        switch (currentState)
-        {
-            case EnemyState.Wander:
-                agent.speed = wanderSpeed;
-                if (!agent.pathPending && agent.remainingDistance < 0.5f)
-                {
-                    agent.SetDestination(GetRandomNavMeshPoint(transform.position, wanderRadius));
-                }
-
-                if (currentNoticeLevel >= chaseThreshold || distToPlayer < currentDetectionRadius)
-                {
-                    SetState(EnemyState.NoticeReaction);
-                }
-                break;
-
-            case EnemyState.NoticeReaction:
-                Vector3 direction = (playerTransform.position - transform.position).normalized;
-                direction.y = 0;
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateToPlayerSpeed);
-
-                lastKnownPosition = playerTransform.position;
-                screamTimer -= Time.deltaTime;
-
-                if (screamTimer <= audioFadeDuration && activeFadeCoroutine == null)
-                {
-                    activeFadeCoroutine = StartCoroutine(FadeOutAudio(audioFadeDuration));
-                }
-
-                if (screamTimer <= 0)
-                {
-                    SetState(EnemyState.Chase);
-                }
-                break;
-
-            case EnemyState.Chase:
-                agent.speed = chaseSpeed;
-
-                // --- KILL TRIGGER ---
-                if (distToPlayer < killDistance)
-                {
-                    SetState(EnemyState.Kill);
-                    return;
-                }
-
-                if (playerCandle.candle_turned_on || distToPlayer < minRadius)
-                {
-                    lastKnownPosition = playerTransform.position;
-                    chaseMemoryTimer = 2.0f;
-                }
-                else
-                {
-                    chaseMemoryTimer -= Time.deltaTime;
-                }
-
-                agent.SetDestination(lastKnownPosition);
-
-                if (chaseMemoryTimer <= 0f)
-                {
-                    if (!agent.pathPending && agent.remainingDistance < 1.5f)
-                    {
-                        SetState(EnemyState.Disappear);
-                    }
-                }
-                break;
-
-            case EnemyState.Disappear:
-                agent.speed = fleeSpeed;
-                if (isForcedFlee)
-                {
-                    if (!agent.pathPending && agent.remainingDistance < 1f)
-                    {
-                        Vector3 fleePos = transform.position + transform.forward * 10f;
-                        agent.SetDestination(GetRandomNavMeshPoint(fleePos, 5f));
-                    }
-                    return;
-                }
-                if (!agent.pathPending && agent.remainingDistance < 1f)
-                {
-                    SetState(EnemyState.Wander);
-                }
-                break;
-        }
-    }
-
-    void SetState(EnemyState newState)
-    {
-        if (activeFadeCoroutine != null) StopCoroutine(activeFadeCoroutine);
-        activeFadeCoroutine = null;
-
-        currentState = newState;
-
-        switch (newState)
-        {
-            case EnemyState.Wander:
-                agent.acceleration = 8f;
-                mainAudioSource.Stop();
-                break;
-
-            case EnemyState.NoticeReaction:
-                agent.velocity = Vector3.zero;
-                agent.isStopped = true;
-                lastKnownPosition = playerTransform.position;
-
-                mainAudioSource.Stop();
-                mainAudioSource.loop = false;
-                mainAudioSource.clip = stingerSound;
-                mainAudioSource.volume = stingerVolume;
-                mainAudioSource.Play();
-
-                screamTimer = 2.5f;
-                break;
-
-            case EnemyState.Chase:
-                agent.isStopped = false;
-                agent.acceleration = 60f;
-
-                mainAudioSource.Stop();
-                mainAudioSource.clip = chaseGrowlSound;
-                mainAudioSource.loop = true;
-                mainAudioSource.volume = chaseVolume;
-                mainAudioSource.Play();
-                break;
-
-            case EnemyState.Disappear:
-                agent.acceleration = 60f;
-                activeFadeCoroutine = StartCoroutine(FadeOutAndStop(1.0f));
-
-                Vector3 fleeDir = (transform.position - playerTransform.position).normalized;
-                Vector3 fleePos = transform.position + fleeDir * 20f;
-                agent.SetDestination(GetRandomNavMeshPoint(fleePos, 5f));
-                break;
-
-            case EnemyState.Kill:
-                // 1. Freeze Enemy
-                agent.isStopped = true;
-                agent.velocity = Vector3.zero;
-
-                // 2. Disable Player Controls
-                if (playerMovementScript != null) playerMovementScript.enabled = false;
-
-
-                // 4. Play Crunch Sound
-                mainAudioSource.Stop();
-                mainAudioSource.loop = false;
-                mainAudioSource.clip = crunchSound;
-                mainAudioSource.volume = crunchVolume;
-                mainAudioSource.Play();
-
-                if (breathingAudioSource) breathingAudioSource.Stop();
-                StartCoroutine(DeathSequence());
-                break;
-        }
-    }
 
 
     IEnumerator FadeOutAudio(float duration)
@@ -379,7 +273,7 @@ public class HorrorEnemyAI : MonoBehaviour
         mainAudioSource.Stop();
         mainAudioSource.volume = startVol;
     }
-
+    /*
     Vector3 GetRandomNavMeshPoint(Vector3 center, float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;
@@ -391,21 +285,7 @@ public class HorrorEnemyAI : MonoBehaviour
         }
         return center;
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.Lerp(Color.green, Color.red, currentNoticeLevel);
-        Gizmos.DrawWireSphere(transform.position, currentDetectionRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, minRadius);
-
-        if (currentState == EnemyState.Chase || currentState == EnemyState.NoticeReaction)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(lastKnownPosition, 1f);
-            Gizmos.DrawLine(transform.position, lastKnownPosition);
-        }
-    }
+    */
 
     // --- NEW DEATH SEQUENCE COROUTINE ---
     IEnumerator DeathSequence()
@@ -428,5 +308,44 @@ public class HorrorEnemyAI : MonoBehaviour
             Debug.LogError("No GameProgressionManager! Reloading scene manually.");
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
+    }
+
+
+    void PickClosestPlayer()
+    {
+
+          List<Transform>  players = GameObject.FindGameObjectsWithTag("Player")
+                .Select(go => go.transform)
+                .ToList();
+        
+
+        players.RemoveAll(p => p == null);
+
+        if (players.Count == 0)
+        {
+            currentTarget = null;
+            return;
+        }
+
+        float closestDist = Mathf.Infinity;
+        Transform closest = null;
+
+        foreach (var p in players)
+        {
+            float dist = Vector3.Distance(transform.position, p.position);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = p;
+            }
+        }
+
+        if(!spawner.isActiveAndEnabled)
+        {
+            spawner = closest.gameObject.GetComponent<EnemySpawner>();
+        }
+
+        currentTarget = closest;
+        ConfigEnemy(closest.gameObject, spawner);
     }
 }

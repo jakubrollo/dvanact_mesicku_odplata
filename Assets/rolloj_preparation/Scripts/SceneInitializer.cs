@@ -32,8 +32,9 @@ public class SceneInitializer : MonoBehaviour
 
             if (data.ForestStage == LunarDudesStage.First)
             {
-                if(pcMonolog != null)
-                    pcMonolog.ActivatePCMonologue(true);
+                //here normaly it would trigger the start of maruska monologue
+              /*  if(pcMonolog != null)
+                    pcMonolog.ActivatePCMonologue(true);*/
             }
 
             SetupScene(data);
@@ -103,7 +104,7 @@ public class SceneInitializer : MonoBehaviour
         {
             if (data.hasEnemy)
             {
-                enemy.SetActive(true);
+                //enemy.SetActive(true);
 
                 // Position Enemy
                 if (enemySpawnPoints.Length > 0)
@@ -118,7 +119,7 @@ public class SceneInitializer : MonoBehaviour
                 HorrorEnemyAI ai = enemy.GetComponent<HorrorEnemyAI>();
                 if (ai != null)
                 {
-                    ai.SetDifficulty(data.chaseSpeed, data.noticeBuildUpTime, data.maxDetectionRadius);
+                    ai.SetDifficulty(data.chaseSpeed);
                 }
             }
             else

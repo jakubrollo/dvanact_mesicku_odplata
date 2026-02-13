@@ -89,6 +89,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &8040301855207374883
 SphereCollider:
@@ -200,6 +201,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &2428292516656804345
 SphereCollider:
@@ -298,6 +300,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 068c0c2a5966b0349a7a4c9e4c6d15b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8102524402352188167}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 068c0c2a5966b0349a7a4c9e4c6d15b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2857635344507158375}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 068c0c2a5966b0349a7a4c9e4c6d15b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1270815408521046298}
   m_SourcePrefab: {fileID: 100100000, guid: 068c0c2a5966b0349a7a4c9e4c6d15b6, type: 3}
 --- !u!1 &2251086171116156 stripped
 GameObject:
@@ -314,7 +322,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -435,47 +443,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf25c4d8aacf6647a7772f4ca0b2480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerCandle: {fileID: 0}
   playerTransform: {fileID: 0}
   playerCameraTransform: {fileID: 0}
   playerVirtualCameraObject: {fileID: 0}
   deathCameraObject: {fileID: 0}
   playerMovementScript: {fileID: 0}
-  noticeBuildUpTime: 12
-  noticeDecayTime: 3
-  noticeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.006942749
-      value: 0.34985352
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.6666565
-      value: 1.2452393
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minRadius: 7
-  maxRadius: 100
-  radiusGrowthSpeed: 2
-  radiusDecaySpeed: 5
-  chaseThreshold: 0.9
-  wanderSpeed: 4
-  chaseSpeed: 14
-  fleeSpeed: 15
-  wanderRadius: 100
+  chaseSpeed: 3
   rotateToPlayerSpeed: 5
   killDistance: 1.4
   enemyEyeHeight: 2
@@ -513,6 +486,51 @@ MonoBehaviour:
   audioFadeDuration: 0.5
   minBreathingPitch: 1
   maxBreathingPitch: 1.8
+  agent: {fileID: 0}
+  cameraIsLocked: 0
+  players: []
+  pathCheckInterval: 1.5
+  stuckDistanceThreshold: 0.2
+  spawner: {fileID: 0}
+--- !u!114 &2857635344507158375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251086171116156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db262fee1f9c824a8db9e32a561aa03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthManager
+  maxHealth: 100
+  stunDuration: 0.5
+  hitSound: {fileID: 8300000, guid: 42d6dfd7a3dcdb54d9f27f64d5098fd7, type: 3}
+  deathSound: {fileID: 8300000, guid: b6780fc319f9d384580d8bfe17b327fd, type: 3}
+--- !u!136 &1270815408521046298
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251086171116156}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.42
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.79, z: 0}
 --- !u!4 &814078363255097542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 068c0c2a5966b0349a7a4c9e4c6d15b6, type: 3}
